@@ -281,6 +281,17 @@ table.tbl{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
 .cartopanel .pt,.mappanel .pt{font-family:var(--body);font-size:16px;font-weight:600}
 .cartopanel .pd{font-size:13px;color:var(--muted);margin-top:4px}
 .side{position:sticky;top:80px}
+.loc.pick{cursor:pointer;transition:border-color .12s,box-shadow .12s}
+.loc.pick:hover{border-color:var(--c)}
+.loc.pick.sel{border-color:var(--c);box-shadow:inset 3px 0 0 var(--c);background:var(--cbg)}
+.mapfilter{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--sunk);border-radius:8px;padding:8px 10px 8px 12px;margin-bottom:10px;font-size:13.5px}
+.mapfilter span{flex:1 1 200px;min-width:0}
+.mapfilter .ico{color:var(--accent)}
+svg.map path,svg.map circle,svg.map polyline{vector-effect:non-scaling-stroke}
+svg.map .reg.dim,svg.map .bub.dim{opacity:.35}
+svg.map .rlab.dim{opacity:.45}
+svg.map .selline path{fill:none;stroke:var(--ink);stroke-width:2.2;pointer-events:none;stroke-linejoin:round}
+svg.map.zoomed{transition:none}
 @media (max-width:1000px){.side{position:static}}
 .terr2{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(0,1fr);gap:16px;margin-top:16px;align-items:start}
 @media (max-width:1000px){.terr2{grid-template-columns:1fr}}
@@ -296,7 +307,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
 svg.map{width:100%;height:auto;display:block}
 svg.map .reg{stroke:none;cursor:pointer;transition:fill .15s}
 svg.map .reg:hover{filter:brightness(.94)}
-svg.map .reg.sel{stroke:var(--ink);stroke-width:2.2}
+
 svg.map .deps path{fill:none;stroke:var(--line2);stroke-width:.5;pointer-events:none}
 svg.map.inset .deps path{stroke-width:.9}
 svg.map .regline path{fill:none;stroke:var(--muted);stroke-width:.9;pointer-events:none;stroke-linejoin:round}
@@ -313,7 +324,7 @@ svg.map .rail,.maplegend .rail{fill:none;stroke:var(--ax3);stroke-width:2;stroke
 svg.map .pin{cursor:pointer;outline:none}
 svg.map .pin circle{stroke:var(--surface);stroke-width:1.6}
 svg.map .pin text{font-family:var(--mono);font-size:9.5px;font-weight:500;fill:var(--on-axis);text-anchor:middle;pointer-events:none}
-svg.map .pin text.plab{fill:var(--ink);font-family:var(--body);font-size:12px;font-weight:600;paint-order:stroke;stroke:var(--surface);stroke-width:3px}
+svg.map .pin text.plab{text-anchor:start;fill:var(--ink);font-family:var(--body);font-size:12px;font-weight:600;paint-order:stroke;stroke:var(--surface);stroke-width:3px}
 svg.map .pin:hover circle,svg.map .pin:focus-visible circle,svg.map .pin.sel circle{stroke:var(--ink);stroke-width:2.4}
 .mapfoot{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);align-items:start}
 .insetbox{border:1px solid var(--line2);border-radius:8px;padding:6px 6px 4px;background:var(--surface)}
@@ -676,7 +687,7 @@ function viewArbo(){
 }
 
 /* ---------- territoires : cartographie ---------- */
-const TERR = {axe:0, region:null, place:null, mode:'choro', dep:true, pins:true};
+const TERR = {axe:0, region:null, place:null, proj:null, mode:'choro', dep:true, pins:true};
 const MAP = {lon0:-17.62, lat0:16.92, k:Math.cos(14.5*Math.PI/180)};
 function P(lon,lat,s,lon0,lat0){ return [((lon-lon0)*MAP.k*s).toFixed(1), ((lat0-lat)*s).toFixed(1)]; }
 function ringPath(ring,s,lon0,lat0){ return 'M'+ring.map(p=>P(p[0],p[1],s,lon0,lat0).join(',')).join('L')+'Z'; }
@@ -692,43 +703,73 @@ function terrPlaces(items){
 function classOf(n){ return n===0?0:n===1?1:n<=3?2:n<=5?3:4; }
 const CLASS_PCT=[0,22,42,64,86], CLASS_LAB=['0','1','2 – 3','4 – 5','6 et plus'];
 
+function terrFocus(){
+  // ce qui est filtré sur la carte : un projet, un lieu ou une région
+  if (TERR.proj!=null){ const l=LOC[TERR.proj]; return {items:[l], regions:l.regions, places:l.places.map(p=>p.n), label:'projet sélectionné'}; }
+  const items = terrItems();
+  if (TERR.place){ const its=items.filter(l=>l.places.some(p=>p.n===TERR.place)); const p=its[0]&&its[0].places.find(q=>q.n===TERR.place); return {items:its, regions:p?[p.r]:[], places:[TERR.place], label:TERR.place}; }
+  if (TERR.region){ return {items:items.filter(l=>l.regions.includes(TERR.region)), regions:[TERR.region], places:null, label:'région de '+TERR.region}; }
+  return null;
+}
 function mapSVG(opts){
   const {s,lon0,lat0,w,h,inset} = opts;
-  const items = terrItems(), places = terrPlaces(items);
+  const items = terrItems(), F = terrFocus();
   const cnt = r => items.filter(l=>l.regions.includes(r)).length;
   const regs = Object.entries(GEO.reg);
+  // emprise : vue nationale ou zoom sur le filtre
+  let vb=[0,0,w,h];
+  if (F && !inset){
+    let xs=[],ys=[];
+    regs.filter(([r])=>F.regions.includes(r)).forEach(([r,ring])=>ring.forEach(p=>{const q=P(p[0],p[1],s,lon0,lat0); xs.push(+q[0]); ys.push(+q[1]);}));
+    F.items.forEach(l=>l.places.forEach(p=>{ if(F.places ? F.places.includes(p.n) : F.regions.includes(p.r)){ const q=P(p.x,p.y,s,lon0,lat0); xs.push(+q[0]); ys.push(+q[1]); }}));
+    if (xs.length){
+      let x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+      let bw=Math.max((x1-x0)*1.35,170), bh=Math.max((y1-y0)*1.35,130); const cx=(x0+x1)/2, cy=(y0+y1)/2;
+      if (bw/bh > w/h) bh=bw*h/w; else bw=bh*w/h;
+      bw=Math.min(bw,w); bh=Math.min(bh,h);
+      vb=[cx-bw/2, cy-bh/2, bw, bh];
+    }
+  }
+  const z = inset ? 1 : w/vb[2];
+  const fs = (px)=>`style="font-size:${(px/z).toFixed(2)}px;stroke-width:${(3/z).toFixed(2)}px"`;
+  const inF = r => !F || F.regions.includes(r);
   let g = '';
   // régions
   g += regs.map(([r,ring])=>{ const n=cnt(r), c=classOf(n);
     const fill = TERR.mode==='choro' && c ? `color-mix(in srgb, var(--accent) ${CLASS_PCT[c]}%, var(--surface))` : 'var(--surface)';
-    const sel = TERR.region===r;
-    return `<path class="reg${sel?' sel':''}" data-r="${r}" data-n="${n}" d="${ringPath(ring,s,lon0,lat0)}" fill="${fill}"/>`; }).join('');
-  // départements
+    const sel = F && F.regions.includes(r);
+    return `<path class="reg${sel?' sel':''}${inF(r)?'':' dim'}" data-r="${r}" data-n="${n}" d="${ringPath(ring,s,lon0,lat0)}" fill="${fill}"/>`; }).join('');
   if (TERR.dep) g += `<g class="deps">${GEO.dep.map(d=>d.g.map(rg=>`<path d="${ringPath(rg,s,lon0,lat0)}"/>`).join('')).join('')}</g>`;
-  // contours régionaux par-dessus
   g += `<g class="regline">${regs.map(([r,ring])=>`<path d="${ringPath(ring,s,lon0,lat0)}"/>`).join('')}</g>`;
+  if (F) g += `<g class="selline">${regs.filter(([r])=>F.regions.includes(r)).map(([r,ring])=>`<path d="${ringPath(ring,s,lon0,lat0)}"/>`).join('')}</g>`;
   // cercles proportionnels
-  if (TERR.mode==='bubbles') g += regs.map(([r,ring])=>{ const n=cnt(r); if(!n) return ''; const c=LABEL_FIX[r]||centroid(ring); const [x,y]=P(c[0],c[1],s,lon0,lat0); const rr=(inset?10:7)*Math.sqrt(n)+3;
-    return `<circle class="bub" data-r="${r}" data-n="${n}" cx="${x}" cy="${y}" r="${rr.toFixed(1)}"/><text class="bubn" x="${x}" y="${y}" dy="4">${n}</text>`; }).join('');
+  if (TERR.mode==='bubbles') g += regs.map(([r,ring])=>{ const n=cnt(r); if(!n) return ''; const c=LABEL_FIX[r]||centroid(ring); const [x,y]=P(c[0],c[1],s,lon0,lat0); const rr=((inset?10:7)*Math.sqrt(n)+3)/z;
+    return `<circle class="bub${inF(r)?'':' dim'}" data-r="${r}" data-n="${n}" cx="${x}" cy="${y}" r="${rr.toFixed(2)}"/><text class="bubn" x="${x}" y="${y}" dy="${(4/z).toFixed(2)}" ${fs(11)}>${n}</text>`; }).join('');
+  // pins visibles selon le filtre
+  let pitems = F ? F.items : items;
+  let places = terrPlaces(pitems);
+  if (F && F.places) places = places.filter(p=>F.places.includes(p.n));
+  else if (F) places = places.filter(p=>F.regions.includes(p.r));
   // ligne Dakar-Kidira
-  const line = items.find(l=>l.line);
-  if (line && TERR.pins){ const pts=[[-17.448,14.693],[-16.926,14.792],[-15.876,14.865],[-15.548,14.102],[-13.668,13.769],[-12.214,14.457]];
+  if (TERR.pins && pitems.some(l=>l.line)){ const pts=[[-17.448,14.693],[-16.926,14.792],[-15.876,14.865],[-15.548,14.102],[-13.668,13.769],[-12.214,14.457]];
     g += `<polyline class="rail" points="${pts.map(p=>P(p[0],p[1],s,lon0,lat0).join(',')).join(' ')}"/>`; }
-  // étiquettes de régions
+  // étiquettes
+  const showName = !inset && F && places.length<=8;
+  const pinReg = new Set(places.map(p=>p.r));
   if (!inset) g += regs.map(([r,ring])=>{ const c=LABEL_FIX[r]||centroid(ring); const [x,y]=P(c[0],c[1],s,lon0,lat0);
-      const anchor = 'middle';
-      return TERR.mode==='bubbles' && cnt(r) ? '' : `<text class="rlab" x="${x}" y="${y}" text-anchor="${anchor}">${r}</text>`; }).join('');
+      if (showName && TERR.pins && pinReg.has(r)) return '';
+      return TERR.mode==='bubbles' && cnt(r) ? '' : `<text class="rlab${inF(r)?'':' dim'}" x="${x}" y="${y}" text-anchor="middle" ${fs(F&&F.regions.includes(r)?12.5:10.5)}>${r}</text>`; }).join('');
   else g += ['Dakar','Thiès'].map(r=>{ const c = r==='Dakar'?[-17.47,14.80]:[-17.0,14.62]; const [x,y]=P(c[0],c[1],s,lon0,lat0); return `<text class="rlab big" x="${x}" y="${y}">${r}</text>`; }).join('');
   // lieux des projets
-  if (TERR.pins) g += places.filter(p=> inset ? (p.x<-16.9 && p.y>14.45) : true).map(p=>{ const [x,y]=P(p.x,p.y,s,lon0,lat0); const n=p.items.length; const r=(inset?6:4.5)+1.6*Math.sqrt(n);
-    const sel = TERR.place===p.n;
-    return `<g class="pin${sel?' sel':''}" data-p="${esc(p.n)}" transform="translate(${x},${y})" tabindex="0" role="button" aria-label="${esc(p.n)} : ${n} élément${n>1?'s':''}"><circle r="${r.toFixed(1)}" style="fill:var(--ax${p.axe})"/>${n>1?`<text dy="3.6">${n}</text>`:''}${inset?`<text class="plab" x="${(r+4).toFixed(1)}" dy="4" text-anchor="start">${esc(p.n)}</text>`:''}</g>`; }).join('');
+  if (TERR.pins) g += places.filter(p=> inset ? (p.x<-16.9 && p.y>14.45) : true).map(p=>{ const [x,y]=P(p.x,p.y,s,lon0,lat0); const n=p.items.length; const r=((inset?6:4.5)+1.6*Math.sqrt(n))/z;
+    const sel = TERR.place===p.n || TERR.proj!=null;
+    return `<g class="pin${sel?' sel':''}" data-p="${esc(p.n)}" transform="translate(${x},${y})" tabindex="0" role="button" aria-label="${esc(p.n)} : ${n} élément${n>1?'s':''}"><circle r="${r.toFixed(2)}" style="fill:var(--ax${p.axe})"/>${n>1?`<text dy="${(3.6/z).toFixed(2)}" ${fs(9.5)}>${n}</text>`:''}${inset||showName?`<text class="plab" x="${(r+4/z).toFixed(2)}" dy="${(4/z).toFixed(2)}" text-anchor="start" ${inset?'':fs(12)}>${esc(p.n)}</text>`:''}</g>`; }).join('');
   // voisins
   if (!inset){
-    const lab=(t,lon,lat,cls='nb')=>{ const [x,y]=P(lon,lat,s,lon0,lat0); return `<text class="${cls}" x="${x}" y="${y}">${t}</text>`; };
+    const lab=(t,lon,lat,cls='nb')=>{ const [x,y]=P(lon,lat,s,lon0,lat0); return `<text class="${cls}" x="${x}" y="${y}" ${fs(cls.startsWith('sea')?9.5:9)}>${t}</text>`; };
     g = lab('OCÉAN',-17.0,13.62,'sea')+lab('ATLANTIQUE',-17.0,13.45,'sea')+lab('MAURITANIE',-15.2,16.82)+lab('MALI',-11.75,14.9)+lab('GAMBIE',-15.6,13.5,'nb gm')+lab('GUINÉE-BISSAU',-15.3,12.36)+lab('GUINÉE',-12.6,12.34)+g;
   } else g = `<text class="sea" x="12" y="${h-14}">OCÉAN ATLANTIQUE</text>`+g;
-  return `<svg viewBox="0 0 ${w} ${h}" class="map${inset?' inset':''}" role="img" aria-label="${inset?'Encart : presqu\'île du Cap-Vert':'Carte des régions du Sénégal et des lieux des projets'}">${g}</svg>`;
+  return `<svg viewBox="${vb.map(v=>v.toFixed(1)).join(' ')}" class="map${inset?' inset':''}${F&&!inset?' zoomed':''}" role="img" aria-label="${inset?'Encart : presqu\'île du Cap-Vert':'Carte des régions du Sénégal et des lieux des projets'}">${g}</svg>`;
 }
 
 function viewTerritoires(){
@@ -747,6 +788,7 @@ function viewTerritoires(){
         <label class="chk"><input type="checkbox" id="tPins" ${TERR.pins?'checked':''}> Lieux des projets</label>
         <label class="chk"><input type="checkbox" id="tDep" ${TERR.dep?'checked':''}> Limites départementales</label>
       </div>
+      <div class="mapfilter" id="mapfilter" hidden></div>
       <div class="mapwrap" id="mapwrap">
         <div id="mainmap"></div>
         <div class="mapfoot"><div class="insetbox"><p class="caps">Encart · presqu'île du Cap-Vert</p><div id="insetmap"></div></div><div class="maplegend" id="maplegend"></div></div>
@@ -767,11 +809,11 @@ function viewTerritoires(){
       <div class="loclist" id="ll"></div>
     </div>
   </div>`;
-  document.querySelectorAll('[data-taxe]').forEach(b=>b.onclick=()=>{ TERR.axe=+b.dataset.taxe; TERR.place=null; document.querySelectorAll('[data-taxe]').forEach(x=>x.setAttribute('aria-pressed',+x.dataset.taxe===TERR.axe)); drawMap(); });
+  document.querySelectorAll('[data-taxe]').forEach(b=>b.onclick=()=>{ TERR.axe=+b.dataset.taxe; TERR.place=null; TERR.proj=null; document.querySelectorAll('[data-taxe]').forEach(x=>x.setAttribute('aria-pressed',+x.dataset.taxe===TERR.axe)); drawMap(); });
   document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{ TERR.mode=b.dataset.mode; document.querySelectorAll('[data-mode]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.mode===TERR.mode)); drawMap(); });
   $('#tPins').onchange=e=>{ TERR.pins=e.target.checked; drawMap(); };
   $('#tDep').onchange=e=>{ TERR.dep=e.target.checked; drawMap(); };
-  $('#treset').onclick=()=>{ TERR.region=null; TERR.place=null; drawMap(); };
+  $('#treset').onclick=()=>{ TERR.region=null; TERR.place=null; TERR.proj=null; drawMap(); };
   drawMap();
 }
 const CARTO = [["Saint-Louis",1,3],["Matam",1,4],["Dakar",2,1],["Thiès",2,2],["Louga",2,3],["Fatick",3,2],["Diourbel",3,3],["Kaffrine",3,4],["Tambacounda",3,5],["Kaolack",4,3],["Ziguinchor",5,2],["Sédhiou",5,3],["Kolda",5,4],["Kédougou",5,5]];
@@ -782,7 +824,7 @@ function drawCarto(items){
     const bg = c ? `color-mix(in srgb, var(--accent) ${CLASS_PCT[c]}%, var(--surface))` : 'var(--surface)';
     const fg = c>=3 ? 'var(--on-accent)' : (n ? 'var(--ink)' : 'var(--muted)');
     return `<button class="rt" data-r="${r}" aria-pressed="${TERR.region===r}" style="grid-row:${row};grid-column:${col};background:${bg};color:${fg}"><span>${r}</span><b>${n}</b></button>`; }).join('');
-  C.querySelectorAll('.rt').forEach(b=>b.onclick=()=>{ TERR.place=null; TERR.region = TERR.region===b.dataset.r?null:b.dataset.r; drawMap(); });
+  C.querySelectorAll('.rt').forEach(b=>b.onclick=()=>{ TERR.place=null; TERR.proj=null; TERR.region = TERR.region===b.dataset.r?null:b.dataset.r; drawMap(); });
 }
 function drawMap(){
   $('#mainmap').innerHTML = mapSVG({s:100, lon0:MAP.lon0, lat0:MAP.lat0, w:615, h:468});
@@ -799,23 +841,35 @@ function drawMap(){
   let list = items, title = `Tous les éléments localisés (${items.length})`;
   if (TERR.region){ list = items.filter(l=>l.regions.includes(TERR.region)); title = `${list.length} élément${list.length>1?'s':''} · région de ${TERR.region}`; }
   if (TERR.place){ list = items.filter(l=>l.places.some(p=>p.n===TERR.place)); title = `${list.length} élément${list.length>1?'s':''} · ${TERR.place}`; }
-  $('#lt').textContent = title; $('#treset').hidden = !(TERR.region||TERR.place);
-  $('#ll').innerHTML = list.length ? list.map(l=>{ const a=ax(l.os); return `<div class="loc" style="${cvars(a)}"><a class="badge" href="#${slug(l.os)}" style="width:40px;height:40px;text-decoration:none" aria-label="Ouvrir l'objectif ${l.os}"><span>${l.os}</span></a><p>${esc(l.txt)}</p><span class="rg">${l.k} · ${l.places.map(p=>p.n).join(', ')}</span></div>`; }).join('')
+  $('#lt').textContent = title; $('#treset').hidden = !(TERR.region||TERR.place||TERR.proj!=null);
+  $('#ll').innerHTML = list.length ? list.map(l=>{ const a=ax(l.os), i=LOC.indexOf(l); return `<div class="loc pick${TERR.proj===i?' sel':''}" data-i="${i}" tabindex="0" role="button" aria-pressed="${TERR.proj===i}" title="Afficher sur la carte" style="${cvars(a)}"><a class="badge" href="#${slug(l.os)}" style="width:40px;height:40px;text-decoration:none" aria-label="Ouvrir l'objectif ${l.os}"><span>${l.os}</span></a><p>${esc(l.txt)}</p><span class="rg">${l.k} · ${l.places.map(p=>p.n).join(', ')}</span></div>`; }).join('')
     : `<div class="empty">Aucun élément localisé pour ce filtre.</div>`;
+  // bandeau de filtre sur la carte
+  const F = terrFocus(), mf = $('#mapfilter');
+  if (F){ const what = TERR.proj!=null ? `${esc(LOC[TERR.proj].txt.length>90?LOC[TERR.proj].txt.slice(0,88)+'…':LOC[TERR.proj].txt)}` : esc(F.label.charAt(0).toUpperCase()+F.label.slice(1));
+    mf.innerHTML = `${svg('pin')}<span><b>Filtre carte :</b> ${what}</span><button class="btn sm" id="mreset">Vue nationale</button>`; mf.hidden=false;
+    $('#mreset').onclick=()=>{ TERR.region=null; TERR.place=null; TERR.proj=null; drawMap(); }; }
+  else mf.hidden = true;
+  // sélection d'un projet dans la liste
+  document.querySelectorAll('#ll .pick').forEach(el=>{
+    const act=()=>{ const i=+el.dataset.i; TERR.proj = TERR.proj===i?null:i; drawMap(); if (innerWidth<1000) $('#mainmap').scrollIntoView({block:'center'}); };
+    el.onclick=e=>{ if (e.target.closest('a')) return; act(); };
+    el.onkeydown=e=>{ if((e.key==='Enter'||e.key===' ') && !e.target.closest('a')){ e.preventDefault(); act(); } };
+  });
   // interactions
   const tip = $('#maptip'), wrap = $('#mapwrap');
   const show = (e,html)=>{ const b=wrap.getBoundingClientRect(); tip.innerHTML=html; tip.hidden=false; let x=e.clientX-b.left+14, y=e.clientY-b.top+14; if (x>b.width-230) x-=250; tip.style.left=x+'px'; tip.style.top=y+'px'; };
   wrap.querySelectorAll('.reg,.bub').forEach(el=>{
     el.onmousemove=e=>show(e,`<b>${el.dataset.r}</b><span>${el.dataset.n} élément${el.dataset.n>1?'s':''} localisé${el.dataset.n>1?'s':''}</span>`);
     el.onmouseleave=()=>tip.hidden=true;
-    el.onclick=()=>{ TERR.place=null; TERR.region = TERR.region===el.dataset.r?null:el.dataset.r; drawMap(); };
+    el.onclick=()=>{ TERR.place=null; TERR.proj=null; TERR.region = TERR.region===el.dataset.r?null:el.dataset.r; drawMap(); };
   });
-  const places = terrPlaces(items);
+  const places = terrPlaces(LOC);
   wrap.querySelectorAll('.pin').forEach(el=>{
     const p = places.find(x=>x.n===el.dataset.p);
     el.onmousemove=e=>show(e,`<b>${esc(p.n)}</b><span>${p.items.length} élément${p.items.length>1?'s':''} · région de ${p.r}</span>${p.items.slice(0,3).map(l=>`<em>OS ${l.os} · ${esc(l.txt.length>70?l.txt.slice(0,68)+'…':l.txt)}</em>`).join('')}${p.items.length>3?`<em>+ ${p.items.length-3} autre${p.items.length>4?'s':''}</em>`:''}`);
     el.onmouseleave=()=>tip.hidden=true;
-    const act=()=>{ TERR.region=null; TERR.place = TERR.place===p.n?null:p.n; drawMap(); };
+    const act=()=>{ TERR.region=null; TERR.proj=null; TERR.place = TERR.place===p.n?null:p.n; drawMap(); };
     el.onclick=e=>{ e.stopPropagation(); act(); };
     el.onkeydown=e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); act(); } };
   });

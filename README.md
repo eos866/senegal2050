@@ -7,7 +7,7 @@ Son ergonomie reprend celle de l'application CAP 28 (plan stratégique du Dépar
 - **Accueil** : présentation, chiffres clés, accès direct aux 27 objectifs stratégiques par tuiles colorées selon l'axe, liste filtrable (axe, type de contenu, recherche plein texte) ;
 - **Fiches objectif** (`#os-1-1` … `#os-4-4`) : objectifs spécifiques et résultats attendus, programmes avec projets et réformes, indicateurs (référence 2023 → cible 2034), projets localisés ;
 - **Table des indicateurs** : les indicateurs du Masterplan, filtrables par axe ;
-- **Territoires** : carte des 14 régions (aplats ou cercles proportionnels, limites départementales), lieux des projets colorés par axe, tracé de la ligne Dakar-Kidira, encart sur la presqu'île du Cap-Vert, puis cartogramme schématique des régions et 8 pôles de croissance ; un clic sur une région ou un lieu filtre la liste ;
+- **Territoires** : carte des 14 régions (aplats ou cercles proportionnels, limites départementales), lieux des projets colorés par axe, tracé de la ligne Dakar-Kidira, encart sur la presqu'île du Cap-Vert, puis cartogramme schématique des régions et 8 pôles de croissance ; un clic sur une région (carte ou cartogramme) ou sur un lieu filtre la liste et zoome la carte, un clic sur un projet de la liste l'affiche seul sur la carte ;
 - **Masterplan 2025-2034** : chaîne de planification, 4 axes et impacts attendus, trajectoires économiques ;
 - **Documents** et **Arborescence** (axes → objectifs → programmes).
 

@@ -15,7 +15,7 @@ GAZ=[('Dakar',r'\bDakar\b(?!-Kidira)','Dakar',-17.448,14.693),
  ('Matam',r'\bMatam\b','Matam',-13.256,15.657),('Lacs de Bakel',r'Bakel','Tambacounda',-12.457,14.905),
  ('Kidira',r'Kidira','Tambacounda',-12.214,14.457),('Kédougou',r'Kédougou','Kédougou',-12.186,12.557),
  ('Bassin de l’Anambé',r'Anambé','Kolda',-14.172,12.942),('Ziguinchor',r'Ziguinchor','Ziguinchor',-16.273,12.564),
- ('Casamance',r'Casamance','Ziguinchor',-15.90,12.80)]
+ ('Casamance',r'Casamance','Ziguinchor',-16.15,12.72)]
 LINES=[('Dakar-Kidira',r'Dakar-Kidira',[[-17.448,14.693],[-16.926,14.792],[-15.876,14.865],[-15.548,14.102],[-13.668,13.769],[-12.214,14.457]])]
 loc=[]
 for o in d:
