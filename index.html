@@ -272,7 +272,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
 .rt{border:1px solid var(--line);border-radius:6px;padding:7px 8px;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;text-align:left;font-size:12px;line-height:1.15;background:var(--surface)}
 .rt b{font-family:var(--display);font-weight:800;font-stretch:85%;font-size:24px;line-height:1}
 .rt[aria-pressed="true"]{outline:2px solid var(--ink);outline-offset:1px}
-.sea{border-radius:6px;display:flex;align-items:flex-end;padding:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ax4);background:repeating-linear-gradient(135deg,var(--ax4-bg) 0 6px,transparent 6px 12px)}
+.csea{border-radius:6px;display:flex;align-items:flex-end;padding:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ax4);background:repeating-linear-gradient(135deg,var(--ax4-bg) 0 6px,transparent 6px 12px)}
 .gambia{align-self:center;height:14px;border-radius:7px;background:var(--sunk);font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--muted);display:flex;align-items:center;justify-content:center}
 .poles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:14px}
 .pole{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--soft);font-family:var(--display);font-weight:800;font-stretch:85%;font-size:16px}
@@ -283,6 +283,11 @@ table.tbl{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
 .loc p{font-size:14px;line-height:1.4}
 
 /* cartographie */
+.leftcol{display:grid;gap:16px;min-width:0}
+.cartopanel .pt,.mappanel .pt{font-family:var(--body);font-size:16px;font-weight:600}
+.cartopanel .pd{font-size:13px;color:var(--muted);margin-top:4px}
+.side{position:sticky;top:80px}
+@media (max-width:1000px){.side{position:static}}
 .terr2{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(0,1fr);gap:16px;margin-top:16px;align-items:start}
 @media (max-width:1000px){.terr2{grid-template-columns:1fr}}
 .mappanel{padding:18px 18px 16px}
@@ -335,8 +340,8 @@ svg.map .pin:hover circle,svg.map .pin:focus-visible circle,svg.map .pin.sel cir
 .sidehead .caps{font-size:11.5px;color:var(--muted)}
 .btn.sm{padding:5px 11px;font-size:12.5px}
 .poles-t{font-family:var(--body);font-size:15px;font-weight:600;margin-top:14px}
-.side .poles{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:0}
-.side .loclist{max-height:560px}
+.cartopanel .poles{margin-top:10px}
+.side .loclist{max-height:calc(100vh - 140px)}
 
 footer{margin-top:64px;background:var(--surface);font-size:13px;color:var(--muted)}
 footer .wrap{display:flex;flex-wrap:wrap;gap:12px 30px;justify-content:space-between;padding-block:24px 32px}
@@ -737,10 +742,19 @@ function mapSVG(opts){
 function viewTerritoires(){
   const POLES = ['Dakar','Thiès','Diourbel-Touba','Nord','Centre','Nord-Est','Sud-Est','Sud'];
   const pills = [{n:0,nom:'Tous les axes'}].concat(AXES).map(a=>`<button class="pill ${a.n?'hasdot':''}" data-taxe="${a.n}" style="--pa:${a.c||'transparent'}" aria-pressed="${TERR.axe===a.n}">${a.n?`Axe ${a.n} · ${a.court}`:a.nom}</button>`).join('');
-  $('#app').innerHTML = `<header class="page-head"><h1>Territoires</h1><p>Le Masterplan réorganise le territoire en 8 pôles économiques intégrés pour désengorger Dakar et porter à 65 % la part du PIB national générée hors de la région de Dakar (55 % en 2023). La carte situe les projets et réformes des tableaux du Masterplan qui citent explicitement un lieu.</p></header>
+  $('#app').innerHTML = `<header class="page-head"><h1>Territoires</h1><p>Le Masterplan réorganise le territoire en 8 pôles économiques intégrés pour désengorger Dakar et porter à 65 % la part du PIB national générée hors de la région de Dakar (55 % en 2023). Le cartogramme et la carte situent les projets et réformes des tableaux du Masterplan qui citent explicitement un lieu.</p></header>
   <div class="pills">${pills}</div>
   <div class="terr2">
+   <div class="leftcol">
+    <div class="panel cartopanel">
+      <h3 class="pt">Projets localisés par région</h3>
+      <p class="pd">Cartogramme schématique des 14 régions. Cliquez sur une région pour filtrer la liste et la carte.</p>
+      <div style="overflow-x:auto;margin-top:14px"><div class="carto" id="carto"></div></div>
+      <h3 class="pt" style="margin-top:22px">Les 8 pôles de croissance</h3>
+      <div class="poles">${POLES.map(p=>`<div class="pole">${p}</div>`).join('')}</div>
+    </div>
     <div class="panel mappanel">
+      <h3 class="pt" style="margin-bottom:12px">Cartographie des projets localisés</h3>
       <div class="maptools">
         <div class="seg" role="group" aria-label="Représentation">
           <button data-mode="choro" aria-pressed="${TERR.mode==='choro'}">Aplats par région</button><button data-mode="bubbles" aria-pressed="${TERR.mode==='bubbles'}">Cercles proportionnels</button>
@@ -755,10 +769,10 @@ function viewTerritoires(){
       </div>
       <p class="src">Limites administratives : GADM 4.1 (licence non commerciale), reprises de l'Observatoire des territoires du Sénégal. Lieux : OpenStreetMap ; sites hors agglomération positionnés de façon approchée. Un projet citant plusieurs lieux est compté dans chaque région concernée.</p>
     </div>
+   </div>
     <div class="side">
       <div class="sidehead"><p class="caps" id="lt"></p><button class="btn sm" id="treset" hidden>Tout afficher</button></div>
       <div class="loclist" id="ll"></div>
-      <h3 class="poles-t">Les 8 pôles de croissance</h3><div class="poles">${POLES.map(p=>`<div class="pole">${p}</div>`).join('')}</div>
     </div>
   </div>`;
   document.querySelectorAll('[data-taxe]').forEach(b=>b.onclick=()=>{ TERR.axe=+b.dataset.taxe; TERR.place=null; document.querySelectorAll('[data-taxe]').forEach(x=>x.setAttribute('aria-pressed',+x.dataset.taxe===TERR.axe)); drawMap(); });
@@ -768,10 +782,21 @@ function viewTerritoires(){
   $('#treset').onclick=()=>{ TERR.region=null; TERR.place=null; drawMap(); };
   drawMap();
 }
+const CARTO = [["Saint-Louis",1,3],["Matam",1,4],["Dakar",2,1],["Thiès",2,2],["Louga",2,3],["Fatick",3,2],["Diourbel",3,3],["Kaffrine",3,4],["Tambacounda",3,5],["Kaolack",4,3],["Ziguinchor",5,2],["Sédhiou",5,3],["Kolda",5,4],["Kédougou",5,5]];
+function drawCarto(items){
+  const C = $('#carto'); if (!C) return;
+  const cnt = r => items.filter(l=>l.regions.includes(r)).length;
+  C.innerHTML = `<div class="csea" style="grid-column:1;grid-row:3/6">Atlantique</div><div class="gambia" style="grid-column:2;grid-row:4">GAMBIE</div>` + CARTO.map(([r,row,col])=>{ const n=cnt(r), c=classOf(n);
+    const bg = c ? `color-mix(in srgb, var(--accent) ${CLASS_PCT[c]}%, var(--surface))` : 'var(--surface)';
+    const fg = c>=3 ? 'var(--on-accent)' : (n ? 'var(--ink)' : 'var(--muted)');
+    return `<button class="rt" data-r="${r}" aria-pressed="${TERR.region===r}" style="grid-row:${row};grid-column:${col};background:${bg};color:${fg}"><span>${r}</span><b>${n}</b></button>`; }).join('');
+  C.querySelectorAll('.rt').forEach(b=>b.onclick=()=>{ TERR.place=null; TERR.region = TERR.region===b.dataset.r?null:b.dataset.r; drawMap(); });
+}
 function drawMap(){
   $('#mainmap').innerHTML = mapSVG({s:100, lon0:MAP.lon0, lat0:MAP.lat0, w:615, h:468});
   $('#insetmap').innerHTML = mapSVG({s:620, lon0:-17.56, lat0:14.87, w:400, h:270, inset:true});
   const items = terrItems();
+  drawCarto(items);
   const tot = Object.keys(GEO.reg).map(r=>items.filter(l=>l.regions.includes(r)).length);
   const used = new Set(tot.map(classOf));
   $('#maplegend').innerHTML = (TERR.mode==='choro'
