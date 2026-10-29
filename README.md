@@ -2,14 +2,14 @@
 
 Application web de consultation de l'**Agenda national de transformation Sénégal 2050 – Masterplan 2025-2034**.
 
-Elle présente :
+Son ergonomie reprend celle de l'application CAP 28 (plan stratégique du Département d'Eure-et-Loir). Elle comprend :
 
-- la vision et l'horizon de planification (2025 → 2029 → 2034 → 2050) ;
-- la chaîne de planification (prospective, planification, programmation, budgétisation, suivi-évaluation) ;
-- les 4 axes stratégiques et leurs impacts attendus en 2034 ;
-- les trajectoires économiques et macroéconomiques (tableaux 1 et 2 du Masterplan) ;
-- un explorateur des 27 objectifs stratégiques : programmes, projets, réformes, objectifs spécifiques et indicateurs (référence 2023 → cible 2034), avec recherche plein texte et filtre par axe ;
-- une vue territoriale : les 8 pôles de croissance et les projets qui citent explicitement un lieu, par région.
+- **Accueil** : présentation, chiffres clés, accès direct aux 27 objectifs stratégiques par tuiles colorées selon l'axe, liste filtrable (axe, type de contenu, recherche plein texte) ;
+- **Fiches objectif** (`#os-1-1` … `#os-4-4`) : objectifs spécifiques et résultats attendus, programmes avec projets et réformes, indicateurs (référence 2023 → cible 2034), projets localisés ;
+- **Table des indicateurs** : les indicateurs du Masterplan, filtrables par axe ;
+- **Territoires** : les 8 pôles de croissance et les projets qui citent explicitement un lieu, par région ;
+- **Masterplan 2025-2034** : chaîne de planification, 4 axes et impacts attendus, trajectoires économiques ;
+- **Documents** et **Arborescence** (axes → objectifs → programmes).
 
 ## Utilisation
 
