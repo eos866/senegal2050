@@ -276,6 +276,62 @@ table.tbl{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
 .loc .rg{grid-column:2;font-family:var(--mono);font-size:11px;color:var(--muted)}
 .loc p{font-size:14px;line-height:1.4}
 
+/* cartographie */
+.terr2{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(0,1fr);gap:16px;margin-top:16px;align-items:start}
+@media (max-width:1000px){.terr2{grid-template-columns:1fr}}
+.mappanel{padding:18px 18px 16px}
+.maptools{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:10px}
+.seg{display:inline-flex;border:1px solid var(--line2);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:var(--surface);padding:7px 12px;font-size:13px;cursor:pointer;color:var(--muted)}
+.seg button+button{border-left:1px solid var(--line2)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.chk{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;cursor:pointer}
+.chk input{accent-color:var(--accent);width:15px;height:15px}
+.mapwrap{position:relative}
+svg.map{width:100%;height:auto;display:block}
+svg.map .reg{stroke:none;cursor:pointer;transition:fill .15s}
+svg.map .reg:hover{filter:brightness(.94)}
+svg.map .reg.sel{stroke:var(--ink);stroke-width:2.2}
+svg.map .deps path{fill:none;stroke:var(--line2);stroke-width:.5;pointer-events:none}
+svg.map.inset .deps path{stroke-width:.9}
+svg.map .regline path{fill:none;stroke:var(--muted);stroke-width:.9;pointer-events:none;stroke-linejoin:round}
+svg.map.inset .regline path{stroke-width:1.4}
+svg.map .rlab{font-family:var(--body);font-size:10.5px;font-weight:600;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round;pointer-events:none}
+svg.map .rlab.big{font-size:15px}
+svg.map .nb{font-family:var(--mono);font-size:9px;letter-spacing:.14em;fill:var(--muted);text-anchor:middle;pointer-events:none}
+svg.map .nb.gm{font-size:8px}
+svg.map .sea{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;fill:var(--ax4);text-anchor:middle;pointer-events:none}
+svg.map.inset .sea{text-anchor:start;font-size:10px}
+svg.map .bub{fill:var(--accent);fill-opacity:.32;stroke:var(--accent);stroke-width:1.4;cursor:pointer}
+svg.map .bubn{font-family:var(--mono);font-size:11px;font-weight:500;fill:var(--ink);text-anchor:middle;pointer-events:none}
+svg.map .rail,.maplegend .rail{fill:none;stroke:var(--ax3);stroke-width:2;stroke-dasharray:5 3;pointer-events:none}
+svg.map .pin{cursor:pointer;outline:none}
+svg.map .pin circle{stroke:var(--surface);stroke-width:1.6}
+svg.map .pin text{font-family:var(--mono);font-size:9.5px;font-weight:500;fill:var(--on-axis);text-anchor:middle;pointer-events:none}
+svg.map .pin text.plab{fill:var(--ink);font-family:var(--body);font-size:12px;font-weight:600;paint-order:stroke;stroke:var(--surface);stroke-width:3px}
+svg.map .pin:hover circle,svg.map .pin:focus-visible circle,svg.map .pin.sel circle{stroke:var(--ink);stroke-width:2.4}
+.mapfoot{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);align-items:start}
+.insetbox{border:1px solid var(--line2);border-radius:8px;padding:6px 6px 4px;background:var(--surface)}
+.insetbox p{font-size:9.5px;color:var(--muted);margin:0 0 2px 4px}
+@media (max-width:700px){.mapfoot{grid-template-columns:1fr}}
+.mapwrap .tip{position:absolute;z-index:6;background:var(--ink);color:var(--bg);border-radius:6px;padding:8px 10px;font-size:12.5px;line-height:1.35;max-width:240px;pointer-events:none;display:grid;gap:3px}
+.mapwrap .tip b{font-family:var(--display);font-stretch:85%;font-size:15px}
+.mapwrap .tip em{font-style:normal;opacity:.85;font-size:12px}
+.maplegend{display:grid;gap:14px;align-content:start}
+.maplegend .bub{fill:var(--accent);fill-opacity:.32;stroke:var(--accent);stroke-width:1.4}
+.maplegend .caps{font-size:10.5px;color:var(--muted);margin-bottom:6px}
+.classes{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;align-items:center}
+.classes span{display:inline-flex;align-items:center;gap:6px}
+.classes i{width:16px;height:12px;border:1px solid var(--line2);border-radius:2px;display:inline-block}
+.classes i.round{width:11px;height:11px;border-radius:50%;border:0}
+.side{display:grid;gap:10px;min-width:0}
+.sidehead{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:32px}
+.sidehead .caps{font-size:11.5px;color:var(--muted)}
+.btn.sm{padding:5px 11px;font-size:12.5px}
+.poles-t{font-family:var(--body);font-size:15px;font-weight:600;margin-top:14px}
+.side .poles{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:0}
+.side .loclist{max-height:560px}
+
 footer{margin-top:64px;background:var(--surface);font-size:13px;color:var(--muted)}
 footer .wrap{display:flex;flex-wrap:wrap;gap:12px 30px;justify-content:space-between;padding-block:24px 32px}
 footer strong{color:var(--ink)}
@@ -307,6 +363,7 @@ footer strong{color:var(--ink)}
 <script>
 const OS = /*OSDATA*/;
 const LOC = /*LOCDATA*/;
+const GEO = /*GEODATA*/;
 
 /* ---------- icônes (traits 24×24) ---------- */
 const I = {
@@ -543,7 +600,7 @@ function viewFiche(id){
       <section class="fsec"><h2>${svg('target')}Objectifs spécifiques et résultats attendus</h2><div class="objs">${objs}</div></section>
       <section class="fsec"><h2>${svg('folder')}Programmes, projets et réformes</h2><p class="lead">Les projets traduisent les interventions concrètes sur le terrain ; les réformes introduisent les changements systémiques.</p>${progs}</section>
       <section class="fsec"><h2>${svg('gauge')}Indicateurs</h2>${inds}</section>
-      ${locs.length?`<section class="fsec"><h2>${svg('pin')}Projets localisés</h2><div class="loclist" style="margin-top:12px;max-height:none">${locs.map(l=>`<div class="loc"><span>${svg('pin')}</span><p>${esc(l.txt)}</p><span class="rg">${l.regions.length?l.regions.join(' · '):'Casamance'}</span></div>`).join('')}</div></section>`:''}
+      ${locs.length?`<section class="fsec"><h2>${svg('pin')}Projets localisés</h2><div class="loclist" style="margin-top:12px;max-height:none">${locs.map(l=>`<div class="loc"><span>${svg('pin')}</span><p>${esc(l.txt)}</p><span class="rg">${l.places.map(p=>p.n).join(', ')} · ${l.regions.join(', ')}</span></div>`).join('')}</div><p style="margin-top:10px"><a class="btn sm" href="#territoires">Voir sur la carte</a></p></section>`:''}
     </div>
   </article>
   <div class="pager">${prev?`<a href="#${slug(prev.id)}"><span>‹ OS ${prev.id}</span><b>${esc(prev.titre)}</b></a>`:''}${next?`<a class="next" href="#${slug(next.id)}"><span>OS ${next.id} ›</span><b>${esc(next.titre)}</b></a>`:''}</div>`;
@@ -613,24 +670,130 @@ function viewArbo(){
   }</div></details>`).join('')}</div>`;
 }
 
-/* ---------- territoires ---------- */
+/* ---------- territoires : cartographie ---------- */
+const TERR = {axe:0, region:null, place:null, mode:'choro', dep:true, pins:true};
+const MAP = {lon0:-17.62, lat0:16.92, k:Math.cos(14.5*Math.PI/180)};
+function P(lon,lat,s,lon0,lat0){ return [((lon-lon0)*MAP.k*s).toFixed(1), ((lat0-lat)*s).toFixed(1)]; }
+function ringPath(ring,s,lon0,lat0){ return 'M'+ring.map(p=>P(p[0],p[1],s,lon0,lat0).join(',')).join('L')+'Z'; }
+function centroid(ring){ let a=0,x=0,y=0; for(let i=0,j=ring.length-1;i<ring.length;j=i++){ const f=ring[j][0]*ring[i][1]-ring[i][0]*ring[j][1]; a+=f; x+=(ring[j][0]+ring[i][0])*f; y+=(ring[j][1]+ring[i][1])*f; } a*=.5; return [x/(6*a), y/(6*a)]; }
+const LABEL_FIX = {'Dakar':[-17.42,14.98], 'Thiès':[-16.78,14.86], 'Kaolack':[-16.05,14.0], 'Fatick':[-16.35,14.35], 'Diourbel':[-16.1,14.75], 'Kaffrine':[-15.35,14.15], 'Sédhiou':[-15.6,12.85], 'Ziguinchor':[-16.35,12.75]};
+
+function terrItems(){ return LOC.filter(l=>!TERR.axe || l.os[0]==String(TERR.axe)); }
+function terrPlaces(items){
+  const m = new Map();
+  items.forEach(l=>l.places.forEach(p=>{ if(!m.has(p.n)) m.set(p.n,{...p,items:[]}); m.get(p.n).items.push(l); }));
+  return [...m.values()].map(p=>{ const c={}; p.items.forEach(l=>c[l.os[0]]=(c[l.os[0]]||0)+1); p.axe=+Object.entries(c).sort((a,b)=>b[1]-a[1])[0][0]; p.multi=Object.keys(c).length>1; return p; });
+}
+function classOf(n){ return n===0?0:n===1?1:n<=3?2:n<=5?3:4; }
+const CLASS_PCT=[0,22,42,64,86], CLASS_LAB=['0','1','2 – 3','4 – 5','6 et plus'];
+
+function mapSVG(opts){
+  const {s,lon0,lat0,w,h,inset} = opts;
+  const items = terrItems(), places = terrPlaces(items);
+  const cnt = r => items.filter(l=>l.regions.includes(r)).length;
+  const regs = Object.entries(GEO.reg);
+  let g = '';
+  // régions
+  g += regs.map(([r,ring])=>{ const n=cnt(r), c=classOf(n);
+    const fill = TERR.mode==='choro' && c ? `color-mix(in srgb, var(--accent) ${CLASS_PCT[c]}%, var(--surface))` : 'var(--surface)';
+    const sel = TERR.region===r;
+    return `<path class="reg${sel?' sel':''}" data-r="${r}" data-n="${n}" d="${ringPath(ring,s,lon0,lat0)}" fill="${fill}"/>`; }).join('');
+  // départements
+  if (TERR.dep) g += `<g class="deps">${GEO.dep.map(d=>d.g.map(rg=>`<path d="${ringPath(rg,s,lon0,lat0)}"/>`).join('')).join('')}</g>`;
+  // contours régionaux par-dessus
+  g += `<g class="regline">${regs.map(([r,ring])=>`<path d="${ringPath(ring,s,lon0,lat0)}"/>`).join('')}</g>`;
+  // cercles proportionnels
+  if (TERR.mode==='bubbles') g += regs.map(([r,ring])=>{ const n=cnt(r); if(!n) return ''; const c=LABEL_FIX[r]||centroid(ring); const [x,y]=P(c[0],c[1],s,lon0,lat0); const rr=(inset?10:7)*Math.sqrt(n)+3;
+    return `<circle class="bub" data-r="${r}" data-n="${n}" cx="${x}" cy="${y}" r="${rr.toFixed(1)}"/><text class="bubn" x="${x}" y="${y}" dy="4">${n}</text>`; }).join('');
+  // ligne Dakar-Kidira
+  const line = items.find(l=>l.line);
+  if (line && TERR.pins){ const pts=[[-17.448,14.693],[-16.926,14.792],[-15.876,14.865],[-15.548,14.102],[-13.668,13.769],[-12.214,14.457]];
+    g += `<polyline class="rail" points="${pts.map(p=>P(p[0],p[1],s,lon0,lat0).join(',')).join(' ')}"/>`; }
+  // étiquettes de régions
+  if (!inset) g += regs.map(([r,ring])=>{ const c=LABEL_FIX[r]||centroid(ring); const [x,y]=P(c[0],c[1],s,lon0,lat0);
+      const anchor = 'middle';
+      return TERR.mode==='bubbles' && cnt(r) ? '' : `<text class="rlab" x="${x}" y="${y}" text-anchor="${anchor}">${r}</text>`; }).join('');
+  else g += ['Dakar','Thiès'].map(r=>{ const c = r==='Dakar'?[-17.47,14.80]:[-17.0,14.62]; const [x,y]=P(c[0],c[1],s,lon0,lat0); return `<text class="rlab big" x="${x}" y="${y}">${r}</text>`; }).join('');
+  // lieux des projets
+  if (TERR.pins) g += places.filter(p=> inset ? (p.x<-16.9 && p.y>14.45) : true).map(p=>{ const [x,y]=P(p.x,p.y,s,lon0,lat0); const n=p.items.length; const r=(inset?6:4.5)+1.6*Math.sqrt(n);
+    const sel = TERR.place===p.n;
+    return `<g class="pin${sel?' sel':''}" data-p="${esc(p.n)}" transform="translate(${x},${y})" tabindex="0" role="button" aria-label="${esc(p.n)} : ${n} élément${n>1?'s':''}"><circle r="${r.toFixed(1)}" style="fill:var(--ax${p.axe})"/>${n>1?`<text dy="3.6">${n}</text>`:''}${inset?`<text class="plab" x="${(r+4).toFixed(1)}" dy="4" text-anchor="start">${esc(p.n)}</text>`:''}</g>`; }).join('');
+  // voisins
+  if (!inset){
+    const lab=(t,lon,lat,cls='nb')=>{ const [x,y]=P(lon,lat,s,lon0,lat0); return `<text class="${cls}" x="${x}" y="${y}">${t}</text>`; };
+    g = lab('OCÉAN',-17.0,13.62,'sea')+lab('ATLANTIQUE',-17.0,13.45,'sea')+lab('MAURITANIE',-15.2,16.82)+lab('MALI',-11.75,14.9)+lab('GAMBIE',-15.6,13.5,'nb gm')+lab('GUINÉE-BISSAU',-15.3,12.36)+lab('GUINÉE',-12.6,12.34)+g;
+  } else g = `<text class="sea" x="12" y="${h-14}">OCÉAN ATLANTIQUE</text>`+g;
+  return `<svg viewBox="0 0 ${w} ${h}" class="map${inset?' inset':''}" role="img" aria-label="${inset?'Encart : presqu\'île du Cap-Vert':'Carte des régions du Sénégal et des lieux des projets'}">${g}</svg>`;
+}
+
 function viewTerritoires(){
-  const REG = [["Saint-Louis",1,3],["Matam",1,4],["Dakar",2,1],["Thiès",2,2],["Louga",2,3],["Fatick",3,2],["Diourbel",3,3],["Kaffrine",3,4],["Tambacounda",3,5],["Kaolack",4,3],["Ziguinchor",5,2],["Sédhiou",5,3],["Kolda",5,4],["Kédougou",5,5]];
-  const cnt = r => LOC.filter(l=>l.regions.includes(r)).length;
   const POLES = ['Dakar','Thiès','Diourbel-Touba','Nord','Centre','Nord-Est','Sud-Est','Sud'];
-  $('#app').innerHTML = `<header class="page-head"><h1>Territoires</h1><p>Le Masterplan réorganise le territoire en 8 pôles économiques intégrés pour désengorger Dakar et porter à 65 % la part du PIB national générée hors de la région de Dakar (55 % en 2023). Le cartogramme recense les projets et réformes des tableaux du Masterplan qui citent explicitement un lieu.</p></header>
-  <div class="grid2" style="align-items:start">
-    <div class="panel"><h3 style="font-size:16px;font-weight:600">Projets localisés par région</h3><p style="font-size:13px;color:var(--muted);margin-top:4px">Cartogramme schématique des 14 régions. Cliquez sur une région pour filtrer la liste.</p>
-      <div style="overflow-x:auto;margin-top:14px"><div class="carto" id="carto"><div class="sea" style="grid-column:1;grid-row:3/6">Atlantique</div><div class="gambia" style="grid-column:2;grid-row:4">GAMBIE</div>${REG.map(([r,row,col])=>{const n=cnt(r);const t=n/8;
-        return `<button class="rt" data-r="${r}" aria-pressed="false" style="grid-row:${row};grid-column:${col};background:${n?`color-mix(in srgb, var(--accent) ${Math.round(14+t*72)}%, var(--surface))`:'var(--surface)'};color:${t>.4?'var(--on-accent)':(n?'var(--ink)':'var(--muted)')}"><span>${r}</span><b>${n}</b></button>`}).join('')}</div></div>
-      <h3 style="font-size:16px;font-weight:600;margin-top:24px">Les 8 pôles de croissance</h3><div class="poles">${POLES.map(p=>`<div class="pole">${p}</div>`).join('')}</div></div>
-    <div><p class="caps" id="lt" style="font-size:12.5px;color:#4B575E;margin-bottom:10px"></p><div class="loclist" id="ll"></div></div>
+  const pills = [{n:0,nom:'Tous les axes'}].concat(AXES).map(a=>`<button class="pill ${a.n?'hasdot':''}" data-taxe="${a.n}" style="--pa:${a.c||'transparent'}" aria-pressed="${TERR.axe===a.n}">${a.n?`Axe ${a.n} · ${a.court}`:a.nom}</button>`).join('');
+  $('#app').innerHTML = `<header class="page-head"><h1>Territoires</h1><p>Le Masterplan réorganise le territoire en 8 pôles économiques intégrés pour désengorger Dakar et porter à 65 % la part du PIB national générée hors de la région de Dakar (55 % en 2023). La carte situe les projets et réformes des tableaux du Masterplan qui citent explicitement un lieu.</p></header>
+  <div class="pills">${pills}</div>
+  <div class="terr2">
+    <div class="panel mappanel">
+      <div class="maptools">
+        <div class="seg" role="group" aria-label="Représentation">
+          <button data-mode="choro" aria-pressed="${TERR.mode==='choro'}">Aplats par région</button><button data-mode="bubbles" aria-pressed="${TERR.mode==='bubbles'}">Cercles proportionnels</button>
+        </div>
+        <label class="chk"><input type="checkbox" id="tPins" ${TERR.pins?'checked':''}> Lieux des projets</label>
+        <label class="chk"><input type="checkbox" id="tDep" ${TERR.dep?'checked':''}> Limites départementales</label>
+      </div>
+      <div class="mapwrap" id="mapwrap">
+        <div id="mainmap"></div>
+        <div class="mapfoot"><div class="insetbox"><p class="caps">Encart · presqu'île du Cap-Vert</p><div id="insetmap"></div></div><div class="maplegend" id="maplegend"></div></div>
+        <div class="tip" id="maptip" hidden></div>
+      </div>
+      <p class="src">Limites administratives : GADM 4.1 (licence non commerciale), reprises de l'Observatoire des territoires du Sénégal. Lieux : OpenStreetMap ; sites hors agglomération positionnés de façon approchée. Un projet citant plusieurs lieux est compté dans chaque région concernée.</p>
+    </div>
+    <div class="side">
+      <div class="sidehead"><p class="caps" id="lt"></p><button class="btn sm" id="treset" hidden>Tout afficher</button></div>
+      <div class="loclist" id="ll"></div>
+      <h3 class="poles-t">Les 8 pôles de croissance</h3><div class="poles">${POLES.map(p=>`<div class="pole">${p}</div>`).join('')}</div>
+    </div>
   </div>`;
-  const list = r => { const items = r?LOC.filter(l=>l.regions.includes(r)):LOC;
-    $('#lt').textContent = r?`${items.length} élément${items.length>1?'s':''} · région de ${r}`:`Tous les projets localisés (${LOC.length})`;
-    $('#ll').innerHTML = items.map(l=>{const a=ax(l.os);return `<div class="loc" style="${cvars(a)}"><a class="badge ${a.dark?'dark':''}" href="#${slug(l.os)}" style="width:40px;height:40px;text-decoration:none" aria-label="Ouvrir l'objectif ${l.os}"><span>${l.os}</span></a><p>${esc(l.txt)}</p><span class="rg">${l.regions.length?l.regions.join(' · '):'Casamance'}</span></div>`}).join(''); };
-  document.querySelectorAll('.rt').forEach(t=>t.onclick=()=>{ const on=t.getAttribute('aria-pressed')==='true'; document.querySelectorAll('.rt').forEach(x=>x.setAttribute('aria-pressed','false')); if(!on){t.setAttribute('aria-pressed','true');list(t.dataset.r)} else list(null); });
-  list(null);
+  document.querySelectorAll('[data-taxe]').forEach(b=>b.onclick=()=>{ TERR.axe=+b.dataset.taxe; TERR.place=null; document.querySelectorAll('[data-taxe]').forEach(x=>x.setAttribute('aria-pressed',+x.dataset.taxe===TERR.axe)); drawMap(); });
+  document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{ TERR.mode=b.dataset.mode; document.querySelectorAll('[data-mode]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.mode===TERR.mode)); drawMap(); });
+  $('#tPins').onchange=e=>{ TERR.pins=e.target.checked; drawMap(); };
+  $('#tDep').onchange=e=>{ TERR.dep=e.target.checked; drawMap(); };
+  $('#treset').onclick=()=>{ TERR.region=null; TERR.place=null; drawMap(); };
+  drawMap();
+}
+function drawMap(){
+  $('#mainmap').innerHTML = mapSVG({s:100, lon0:MAP.lon0, lat0:MAP.lat0, w:615, h:468});
+  $('#insetmap').innerHTML = mapSVG({s:620, lon0:-17.56, lat0:14.87, w:400, h:270, inset:true});
+  const items = terrItems();
+  const tot = Object.keys(GEO.reg).map(r=>items.filter(l=>l.regions.includes(r)).length);
+  const used = new Set(tot.map(classOf));
+  $('#maplegend').innerHTML = (TERR.mode==='choro'
+    ? `<div><p class="caps">Éléments localisés par région</p><div class="classes">${CLASS_LAB.map((l,i)=>`<span><i style="background:${i?`color-mix(in srgb, var(--accent) ${CLASS_PCT[i]}%, var(--surface))`:'var(--surface)'}"></i>${l}</span>`).join('')}</div></div>`
+    : `<div><p class="caps">Éléments localisés par région</p><div class="classes"><span><svg width="34" height="22" aria-hidden="true"><circle cx="11" cy="11" r="10" class="bub"/></svg>surface proportionnelle au nombre</span></div></div>`)
+    + (TERR.pins?`<div><p class="caps">Lieux cités · couleur de l'axe dominant</p><div class="classes">${AXES.map(a=>`<span><i class="round" style="background:${a.c}"></i>Axe ${a.n}</span>`).join('')}<span><svg width="40" height="10" aria-hidden="true"><line x1="0" y1="5" x2="40" y2="5" class="rail"/></svg>Ligne Dakar-Kidira</span></div></div>`:'');
+  // liste
+  let list = items, title = `Tous les éléments localisés (${items.length})`;
+  if (TERR.region){ list = items.filter(l=>l.regions.includes(TERR.region)); title = `${list.length} élément${list.length>1?'s':''} · région de ${TERR.region}`; }
+  if (TERR.place){ list = items.filter(l=>l.places.some(p=>p.n===TERR.place)); title = `${list.length} élément${list.length>1?'s':''} · ${TERR.place}`; }
+  $('#lt').textContent = title; $('#treset').hidden = !(TERR.region||TERR.place);
+  $('#ll').innerHTML = list.length ? list.map(l=>{ const a=ax(l.os); return `<div class="loc" style="${cvars(a)}"><a class="badge" href="#${slug(l.os)}" style="width:40px;height:40px;text-decoration:none" aria-label="Ouvrir l'objectif ${l.os}"><span>${l.os}</span></a><p>${esc(l.txt)}</p><span class="rg">${l.k} · ${l.places.map(p=>p.n).join(', ')}</span></div>`; }).join('')
+    : `<div class="empty">Aucun élément localisé pour ce filtre.</div>`;
+  // interactions
+  const tip = $('#maptip'), wrap = $('#mapwrap');
+  const show = (e,html)=>{ const b=wrap.getBoundingClientRect(); tip.innerHTML=html; tip.hidden=false; let x=e.clientX-b.left+14, y=e.clientY-b.top+14; if (x>b.width-230) x-=250; tip.style.left=x+'px'; tip.style.top=y+'px'; };
+  wrap.querySelectorAll('.reg,.bub').forEach(el=>{
+    el.onmousemove=e=>show(e,`<b>${el.dataset.r}</b><span>${el.dataset.n} élément${el.dataset.n>1?'s':''} localisé${el.dataset.n>1?'s':''}</span>`);
+    el.onmouseleave=()=>tip.hidden=true;
+    el.onclick=()=>{ TERR.place=null; TERR.region = TERR.region===el.dataset.r?null:el.dataset.r; drawMap(); };
+  });
+  const places = terrPlaces(items);
+  wrap.querySelectorAll('.pin').forEach(el=>{
+    const p = places.find(x=>x.n===el.dataset.p);
+    el.onmousemove=e=>show(e,`<b>${esc(p.n)}</b><span>${p.items.length} élément${p.items.length>1?'s':''} · région de ${p.r}</span>${p.items.slice(0,3).map(l=>`<em>OS ${l.os} · ${esc(l.txt.length>70?l.txt.slice(0,68)+'…':l.txt)}</em>`).join('')}${p.items.length>3?`<em>+ ${p.items.length-3} autre${p.items.length>4?'s':''}</em>`:''}`);
+    el.onmouseleave=()=>tip.hidden=true;
+    const act=()=>{ TERR.region=null; TERR.place = TERR.place===p.n?null:p.n; drawMap(); };
+    el.onclick=e=>{ e.stopPropagation(); act(); };
+    el.onkeydown=e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); act(); } };
+  });
 }
 
 /* ---------- routeur ---------- */

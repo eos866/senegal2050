@@ -7,7 +7,7 @@ Son ergonomie reprend celle de l'application CAP 28 (plan stratégique du Dépar
 - **Accueil** : présentation, chiffres clés, accès direct aux 27 objectifs stratégiques par tuiles colorées selon l'axe, liste filtrable (axe, type de contenu, recherche plein texte) ;
 - **Fiches objectif** (`#os-1-1` … `#os-4-4`) : objectifs spécifiques et résultats attendus, programmes avec projets et réformes, indicateurs (référence 2023 → cible 2034), projets localisés ;
 - **Table des indicateurs** : les indicateurs du Masterplan, filtrables par axe ;
-- **Territoires** : les 8 pôles de croissance et les projets qui citent explicitement un lieu, par région ;
+- **Territoires** : carte des 14 régions (aplats ou cercles proportionnels, limites départementales), lieux des projets colorés par axe, tracé de la ligne Dakar-Kidira, encart sur la presqu'île du Cap-Vert ; un clic sur une région ou un lieu filtre la liste ;
 - **Masterplan 2025-2034** : chaîne de planification, 4 axes et impacts attendus, trajectoires économiques ;
 - **Documents** et **Arborescence** (axes → objectifs → programmes).
 
@@ -39,7 +39,9 @@ L'application tient dans un seul fichier `index.html`, sans dépendance à insta
 | `index.html` | Application (données intégrées) |
 | `charte.css` | Jetons et styles de la charte graphique |
 | `data/objectifs.json` | Les 27 objectifs stratégiques : objectifs spécifiques, programmes, projets, réformes, indicateurs |
-| `data/projets-localises.json` | Projets et réformes citant un lieu, rattachés à leur région |
+| `data/projets-localises.json` | Projets et réformes citant un lieu : lieux (coordonnées) et régions |
+| `data/limites-regions-departements.json` | Limites simplifiées des 14 régions et 45 départements (GADM 4.1) |
+| `scripts/geolocaliser.py` | Géolocalisation des projets par lieu (gazetier) |
 | `scripts/extraire_tableaux.py` | Extraction des tableaux du PDF (pdfplumber) |
 | `scripts/nettoyer_donnees.py` | Nettoyage des données et géolocalisation par région |
 | `scripts/template.html` | Gabarit de la page, dans lequel les données sont injectées |
@@ -57,7 +59,8 @@ python3 -c "t=open('scripts/template.html').read(); t=t.replace('/*OSDATA*/',ope
 ## Limites
 
 - Les données sont extraites automatiquement des tableaux du PDF ; quelques intitulés de projets ou de réformes peuvent être découpés imparfaitement.
-- La vue territoriale est un cartogramme schématique des 14 régions, pas une carte géographique.
+- Limites administratives : GADM 4.1, licence **non commerciale**, reprises de l'Observatoire des territoires du Sénégal. Pour un usage commercial, les remplacer par les limites officielles (DTGC, ANAT) ou geoBoundaries (CC BY 4.0).
+- Lieux : OpenStreetMap (ODbL) ; les sites hors agglomération (Sangomar, delta du Saloum, Casamance, Ndayane) sont positionnés de façon approchée.
 - Application non officielle, réalisée à titre de démonstration. Elle ne remplace pas le document de référence.
 
 ## Source
