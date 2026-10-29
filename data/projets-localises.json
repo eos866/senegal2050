@@ -1,0 +1,185 @@
+[
+{
+"os": "1.1",
+"txt": "Projets de résilience économique de la Casamance",
+"regions": [],
+"casamance": true
+},
+{
+"os": "1.1",
+"txt": "Projet de réhabilitation et d’extension des périmètres irrigués du Bassin de l’Anambé",
+"regions": [
+"Kolda"
+],
+"casamance": false
+},
+{
+"os": "1.1",
+"txt": "Projet d’aménagement de 1000 ha de vallées et basfonds et 40 ha de périmètres maraîchers dans les régions de Fatick et Kaolack",
+"regions": [
+"Fatick",
+"Kaolack"
+],
+"casamance": false
+},
+{
+"os": "1.2",
+"txt": "Cité technologique des Mines et de la Géologie de Thiès",
+"regions": [
+"Thiès"
+],
+"casamance": false
+},
+{
+"os": "1.2",
+"txt": "Hub minier régional (Kédougou)",
+"regions": [
+"Kédougou"
+],
+"casamance": false
+},
+{
+"os": "1.2",
+"txt": "Pôle industriel Phosphates-engrais (Matam)",
+"regions": [
+"Matam"
+],
+"casamance": false
+},
+{
+"os": "1.2",
+"txt": "Projet industriel des phosphates/engrais de Louga",
+"regions": [
+"Louga"
+],
+"casamance": false
+},
+{
+"os": "1.2",
+"txt": "Accélération de la production de gaz : Sangomar gaz, Yakaar-Teranga et GTA1+",
+"regions": [
+"Fatick"
+],
+"casamance": false
+},
+{
+"os": "1.3",
+"txt": "Zones industrielles Touba, Diamniadio/Diass, Ndayane, Parc industriel automobile)",
+"regions": [
+"Dakar",
+"Thiès",
+"Diourbel"
+],
+"casamance": false
+},
+{
+"os": "2.3",
+"txt": "Développement des infrastructures de pointe (hôpital de niveau 3 en régions et niveau 4 à Dakar, Diass ou Thiès)",
+"regions": [
+"Dakar",
+"Thiès"
+],
+"casamance": false
+},
+{
+"os": "3.1",
+"txt": "Projet Dakar métropole",
+"regions": [
+"Dakar"
+],
+"casamance": false
+},
+{
+"os": "3.1",
+"txt": "Projet d’aménagement du parc forestier urbain de Dakar Yoff",
+"regions": [
+"Dakar"
+],
+"casamance": false
+},
+{
+"os": "3.1",
+"txt": "Projet national d’aménagement et de restauration des plans d’eau (lacs Bakel et consorts)",
+"regions": [
+"Tambacounda"
+],
+"casamance": false
+},
+{
+"os": "3.1",
+"txt": "Projet spécial d’aménagement et de développement de Touba métropole",
+"regions": [
+"Diourbel"
+],
+"casamance": false
+},
+{
+"os": "3.1",
+"txt": "Projet de Relèvement d’Urgence et de Résilience à Saint-Louis (SERRP)",
+"regions": [
+"Saint-Louis"
+],
+"casamance": false
+},
+{
+"os": "3.2",
+"txt": "Projet de renforcement de la résilience des écosystèmes et des communautés côtières face au changement climatique dans le delta du Saloum et Basse Casamance (P2REC)",
+"regions": [
+"Fatick"
+],
+"casamance": true
+},
+{
+"os": "3.5",
+"txt": "Projet de connectivité routière des ports de Sendou-Bargny et Ndayane",
+"regions": [
+"Dakar",
+"Thiès"
+],
+"casamance": false
+},
+{
+"os": "3.5",
+"txt": "Reconfiguration et mise à niveau des échangeurs, ponts et autoponts (dont échangeur du CICES et Second pont de Ziguinchor)",
+"regions": [
+"Ziguinchor"
+],
+"casamance": false
+},
+{
+"os": "3.5",
+"txt": "Construction d’une nouvelle ligne à écartement standard Dakar-Kidira",
+"regions": [
+"Dakar",
+"Tambacounda"
+],
+"casamance": false
+},
+{
+"os": "3.5",
+"txt": "Projet d’exploitation des ports Ndayane, de Sendou, de Ziguinchor, de Foundiougne Dakhonga et de Kaolack",
+"regions": [
+"Thiès",
+"Fatick",
+"Kaolack",
+"Ziguinchor"
+],
+"casamance": false
+},
+{
+"os": "3.5",
+"txt": "Ligne Dakar Praia",
+"regions": [
+"Dakar"
+],
+"casamance": false
+},
+{
+"os": "3.5",
+"txt": "Liaison Dakar-Gorée",
+"regions": [
+"Dakar"
+],
+"casamance": false
+}
+]

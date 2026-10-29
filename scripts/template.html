@@ -1,0 +1,616 @@
+<title>Sénégal 2050</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout : bandeau d'horizon 2025→2050, puis sections pleine largeur sur colonne 1180px ; explorateur en deux volets (liste / fiche) */
+:root{
+  --bg:#F3F6F1; --surface:#FFFFFF; --sunk:#E8EEE6; --ink:#13201A; --muted:#56665C; --line:#D5DED2;
+  --accent:#0A6B3B; --flag-g:#00853F; --flag-y:#F2C230; --flag-r:#D9262E;
+  --a1:#B87A06; --a2:#BF3B28; --a3:#277A4A; --a4:#1D5C88;
+  --a1-soft:#F6EBD3; --a2-soft:#F7DFDA; --a3-soft:#DCEEE2; --a4-soft:#DCE8F2;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --wrap:1180px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1511; --surface:#16201A; --sunk:#1C2821; --ink:#E6EDE8; --muted:#97A89D; --line:#2A3830;
+  --accent:#4CC38A; --a1:#E3A83A; --a2:#EA7560; --a3:#5BC086; --a4:#5EA9DD;
+  --a1-soft:#2E2613; --a2-soft:#331E1A; --a3-soft:#173024; --a4-soft:#16283A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1511; --surface:#16201A; --sunk:#1C2821; --ink:#E6EDE8; --muted:#97A89D; --line:#2A3830;
+  --accent:#4CC38A; --a1:#E3A83A; --a2:#EA7560; --a3:#5BC086; --a4:#5EA9DD;
+  --a1-soft:#2E2613; --a2-soft:#331E1A; --a3-soft:#173024; --a4-soft:#16283A; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+p{margin:0}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* barre de navigation */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:20px;height:58px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:800;font-stretch:80%;font-size:19px;letter-spacing:.01em;white-space:nowrap}
+.flag{display:inline-grid;grid-template-columns:repeat(3,6px);height:18px;border-radius:2px;overflow:hidden}
+.flag i{display:block}.flag i:nth-child(1){background:var(--flag-g)}.flag i:nth-child(2){background:var(--flag-y)}.flag i:nth-child(3){background:var(--flag-r)}
+.nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{text-decoration:none;font-size:13.5px;padding:7px 11px;border-radius:6px;color:var(--muted);white-space:nowrap}
+.nav a:hover{background:var(--sunk);color:var(--ink)}
+@media (max-width:760px){.brand span.long{display:none}.nav a{padding:7px 8px;font-size:13px}}
+
+/* hero */
+.hero{padding-block:56px 40px;border-bottom:1px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:48px;align-items:end}
+.hero h1{font-weight:900;font-stretch:72%;font-size:clamp(60px,10vw,132px);line-height:.86;letter-spacing:-.01em;text-transform:uppercase}
+.hero h1 .yr{display:block;color:var(--accent)}
+.hero .kicker{margin-bottom:18px}
+.hero .lead{font-size:18px;line-height:1.5;max-width:44ch;margin-top:22px}
+.hero .lead strong{font-weight:600}
+.quote{border-left:3px solid var(--flag-y);padding:4px 0 4px 18px;font-size:15px;color:var(--muted);max-width:52ch}
+.quote cite{display:block;margin-top:8px;font-style:normal;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr;gap:28px}}
+
+/* règle d'horizon */
+.horizon{margin-top:44px}
+.ruler{position:relative;height:74px}
+.ruler .base{position:absolute;left:0;right:0;top:34px;height:2px;background:var(--line)}
+.ruler .seg{position:absolute;top:30px;height:10px;border-radius:2px}
+.ruler .tick{position:absolute;top:0;transform:translateX(-50%);text-align:center;white-space:nowrap}
+.ruler .tick b{display:block;font-family:var(--display);font-weight:800;font-stretch:80%;font-size:22px;line-height:1}
+.ruler .tick span{display:block;margin-top:30px;font-size:12px;color:var(--muted)}
+.ruler .tick::after{content:"";position:absolute;left:50%;top:26px;width:2px;height:18px;background:var(--ink);transform:translateX(-50%)}
+.ruler .tick:first-child{transform:none;text-align:left}.ruler .tick:first-child::after{left:0}
+.ruler .tick:last-child{transform:translateX(-100%);text-align:right}.ruler .tick:last-child::after{left:auto;right:0}
+@media (max-width:560px){.ruler .tick span{font-size:10.5px;max-width:9ch;white-space:normal}.ruler .tick b{font-size:18px}}
+
+.counts{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;margin-top:40px;border-top:1px solid var(--line)}
+.counts div{padding:16px 14px 0 0}
+.counts b{display:block;font-family:var(--display);font-weight:800;font-stretch:85%;font-size:38px;line-height:1;font-variant-numeric:tabular-nums}
+.counts span{font-size:12.5px;color:var(--muted)}
+@media (max-width:760px){.counts{grid-template-columns:repeat(3,minmax(0,1fr))}.counts div{padding-bottom:12px}}
+
+/* sections */
+section.block{padding-block:64px;border-bottom:1px solid var(--line)}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:40px;align-items:end;margin-bottom:34px}
+.sec-head h2{font-weight:850;font-stretch:78%;font-size:clamp(34px,5vw,54px);line-height:.95;text-transform:uppercase}
+.sec-head p{color:var(--muted);max-width:60ch}
+@media (max-width:860px){.sec-head{grid-template-columns:1fr;gap:14px}}
+
+/* chaîne de planification */
+.chain{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;counter-reset:c}
+.chain li{list-style:none;padding:18px 18px 20px;border-top:3px solid var(--ink);position:relative}
+.chain li+li{border-left:1px solid var(--line)}
+.chain .dur{font-family:var(--display);font-weight:800;font-stretch:80%;font-size:30px;line-height:1}
+.chain h3{font-family:var(--body);font-size:14px;font-weight:600;margin-top:10px}
+.chain p{font-size:13px;color:var(--muted);margin-top:6px}
+.chain{padding:0;margin:0}
+@media (max-width:860px){.chain{grid-template-columns:1fr 1fr}.chain li+li{border-left:0}.chain li{border-top-width:2px}}
+@media (max-width:480px){.chain{grid-template-columns:1fr}}
+
+/* axes */
+.axes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.axe{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.axe-top{display:flex;align-items:baseline;gap:14px}
+.axe-num{font-family:var(--display);font-weight:900;font-stretch:70%;font-size:64px;line-height:.8;color:var(--c)}
+.axe h3{font-weight:800;font-stretch:85%;font-size:24px;line-height:1.05}
+.axe .defi{font-size:14px;color:var(--muted)}
+.axe .imp{display:grid;gap:0;border-top:1px solid var(--line)}
+.axe .imp div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+.axe .imp .v{font-family:var(--mono);font-size:12.5px;white-space:nowrap;text-align:right}
+.axe .imp .v em{font-style:normal;color:var(--muted)}
+.axe .imp .v strong{color:var(--c);font-weight:500}
+.axe-foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:auto}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font-size:13.5px;cursor:pointer;text-decoration:none}
+.btn:hover{border-color:var(--ink)}
+.btn.solid{background:var(--c,var(--accent));border-color:var(--c,var(--accent));color:var(--bg);font-weight:600}
+.axe-foot .meta{font-family:var(--mono);font-size:12px;color:var(--muted)}
+@media (max-width:860px){.axes{grid-template-columns:1fr}}
+
+/* trajectoires */
+.traj{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px;min-width:0}
+.panel h3{font-family:var(--body);font-size:15px;font-weight:600}
+.panel .src{font-size:11.5px;color:var(--muted);margin-top:14px}
+.mult{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 22px;margin-top:18px}
+.mult .m h4{margin:0 0 8px;font-size:12.5px;font-weight:500;color:var(--muted)}
+.bars{display:grid;grid-template-columns:repeat(3,1fr);align-items:end;gap:8px;height:110px;border-bottom:1px solid var(--line)}
+.bars div{position:relative;background:var(--a3-soft);border-radius:3px 3px 0 0;min-height:2px}
+.bars div.last{background:var(--accent)}
+.bars div b{position:absolute;bottom:100%;left:0;right:0;text-align:center;font-family:var(--mono);font-weight:500;font-size:11.5px;padding-bottom:3px;white-space:nowrap}
+.bars-x{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-family:var(--mono);font-size:11px;color:var(--muted);text-align:center;margin-top:4px}
+.dumb{margin-top:16px;display:grid;gap:4px}
+.drow{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:12px;align-items:center;padding:6px 0;border-bottom:1px dashed var(--line)}
+.drow .lab{font-size:13px;line-height:1.25}
+.drow svg{width:100%;height:auto;max-height:34px;display:block;overflow:visible}
+@media (max-width:560px){.drow{grid-template-columns:1fr;gap:2px}.drow svg{max-height:none}}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--muted);margin-top:10px;flex-wrap:wrap}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+@media (max-width:860px){.traj{grid-template-columns:1fr}}
+
+/* explorateur */
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:18px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 13px;font-size:13px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.chip .dot{width:9px;height:9px;border-radius:50%;background:var(--c,var(--ink))}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.search{margin-left:auto;position:relative;flex:1 1 260px;max-width:380px}
+.search input{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:9px 12px 9px 34px;font:inherit;font-size:14px;color:var(--ink)}
+.search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--muted)}
+.explorer{display:grid;grid-template-columns:minmax(0,370px) minmax(0,1fr);gap:20px;align-items:start}
+.oslist{display:flex;flex-direction:column;gap:6px;max-height:820px;overflow-y:auto;padding-right:4px}
+.osi{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:11px 13px 11px 14px;cursor:pointer;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;position:relative}
+.osi:hover{border-color:var(--c)}
+.osi[aria-current="true"]{border-color:var(--c);box-shadow:inset 3px 0 0 var(--c);background:var(--soft)}
+.osi .id{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--c);padding-top:2px}
+.osi .t{font-size:13.5px;line-height:1.3;font-weight:500}
+.osi .hits{grid-column:2;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.empty{padding:24px;border:1px dashed var(--line);border-radius:8px;color:var(--muted);font-size:14px}
+.fiche{background:var(--surface);border:1px solid var(--line);border-radius:10px;min-width:0;overflow:hidden}
+.fiche-head{padding:24px 26px 20px;border-bottom:1px solid var(--line);background:var(--soft)}
+.fiche-head .eyebrow{color:var(--c)}
+.fiche-head h3{font-weight:800;font-stretch:85%;font-size:clamp(22px,3vw,30px);line-height:1.08;margin-top:8px}
+.fiche-head .resume{margin-top:12px;font-size:14.5px;max-width:72ch}
+.fiche-stats{display:flex;gap:22px;flex-wrap:wrap;margin-top:16px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.fiche-stats b{color:var(--ink);font-size:15px;font-weight:500;margin-right:4px}
+.tabs{display:flex;gap:2px;padding:0 18px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{border:0;background:none;padding:13px 10px;font-size:13.5px;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--c);font-weight:600}
+.tabpanel{padding:22px 26px 26px}
+.prog{border:1px solid var(--line);border-radius:8px;margin-bottom:12px;overflow:hidden}
+.prog>summary{list-style:none;cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:start}
+.prog>summary::-webkit-details-marker{display:none}
+.prog .dom{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--c)}
+.prog .pt{font-weight:600;font-size:14.5px;line-height:1.3;margin-top:3px}
+.prog .pt span{display:block;font-weight:400;font-size:13.5px;color:var(--muted)}
+.prog .cnt{font-family:var(--mono);font-size:11.5px;color:var(--muted);white-space:nowrap;text-align:right}
+.prog .cnt::after{content:"＋";display:inline-block;margin-left:8px;color:var(--ink)}
+.prog[open] .cnt::after{content:"－"}
+.prog-body{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:0;border-top:1px solid var(--line)}
+.col{padding:14px 16px;min-width:0}
+.col+.col{border-left:1px solid var(--line);background:var(--sunk)}
+.col h5{margin:0 0 8px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.col ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.col li{font-size:13.5px;line-height:1.4;padding-left:14px;position:relative}
+.col li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:2px;background:var(--c)}
+.col.ref li::before{width:5px;height:5px;border-radius:1px;top:.5em;background:var(--muted)}
+mark{background:var(--a1-soft);color:inherit;border-radius:2px;padding:0 1px}
+@media (max-width:700px){.prog-body{grid-template-columns:1fr}.col+.col{border-left:0;border-top:1px solid var(--line)}}
+.obj{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;padding:14px 0;border-bottom:1px dashed var(--line)}
+.obj:first-child{padding-top:0}
+.obj .n{font-family:var(--mono);font-size:12px;color:var(--c);padding-top:2px}
+.obj h4{margin:0;font-size:14.5px;font-weight:600;line-height:1.35}
+.obj ul{grid-column:2;margin:4px 0 0;padding:0;list-style:none;display:grid;gap:4px}
+.obj li{font-size:13.5px;color:var(--muted);padding-left:16px;position:relative}
+.obj li::before{content:"→";position:absolute;left:0;color:var(--c)}
+.ind-wrap{overflow-x:auto}
+table.ind{width:100%;border-collapse:collapse;font-size:13.5px;min-width:520px}
+table.ind th{text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:0 10px 10px;border-bottom:1px solid var(--line)}
+table.ind td{padding:10px;border-bottom:1px dashed var(--line);vertical-align:top}
+table.ind td:first-child,table.ind th:first-child{padding-left:0}
+table.ind td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right;font-size:13px}
+table.ind th.num{text-align:right}
+table.ind td.num.to{color:var(--c);font-weight:500}
+table.ind td.arrow{color:var(--muted);text-align:center;width:24px;padding:10px 0}
+@media (max-width:900px){.explorer{grid-template-columns:1fr}.oslist{max-height:none;flex-direction:row;overflow-x:auto;padding-bottom:6px}.osi{min-width:240px}}
+
+/* territoires */
+.terr{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+.carto-wrap{overflow-x:auto}
+.carto{display:grid;grid-template-columns:repeat(5,minmax(74px,1fr));grid-template-rows:repeat(5,78px);gap:6px;min-width:400px}
+.tile{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:7px 8px;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;text-align:left;font-size:12px;line-height:1.15;position:relative}
+.tile b{font-family:var(--display);font-weight:800;font-stretch:85%;font-size:24px;line-height:1}
+.tile[data-n="0"]{color:var(--muted)}
+.tile:hover{border-color:var(--ink)}
+.tile[aria-pressed="true"]{outline:2px solid var(--ink);outline-offset:1px}
+.sea{grid-column:1;grid-row:3/6;border-radius:6px;display:flex;align-items:flex-end;padding:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--a4);background:repeating-linear-gradient(135deg,var(--a4-soft) 0 6px,transparent 6px 12px)}
+.gambia{grid-column:2/5;grid-row:4;align-self:center;height:14px;border-radius:7px;background:var(--sunk);font-family:var(--mono);font-size:10px;color:var(--muted);display:flex;align-items:center;justify-content:center;letter-spacing:.08em}
+.poles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:20px}
+.pole{border:1px solid var(--line);border-radius:8px;padding:10px 11px;background:var(--surface)}
+.pole b{display:block;font-family:var(--display);font-weight:800;font-stretch:85%;font-size:16px}
+.pole span{font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+.loclist{display:grid;gap:8px;max-height:640px;overflow-y:auto;padding-right:4px}
+@media (max-width:900px){.loclist{max-height:520px}}
+.loc{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.loc .id{font-family:var(--mono);font-size:11.5px;color:var(--c);padding-top:1px}
+.loc p{font-size:13.5px;line-height:1.4}
+.loc .rg{grid-column:2;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.loc a{grid-column:2;font-size:12.5px;color:var(--c)}
+@media (max-width:900px){.terr{grid-template-columns:1fr}.poles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* pied */
+footer{padding-block:40px 56px;color:var(--muted);font-size:13px}
+footer .wrap{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:30px}
+footer strong{color:var(--ink)}
+.tri{height:4px;display:grid;grid-template-columns:1fr 1fr 1fr}
+.tri i{display:block}.tri i:nth-child(1){background:var(--flag-g)}.tri i:nth-child(2){background:var(--flag-y)}.tri i:nth-child(3){background:var(--flag-r)}
+@media (max-width:760px){footer .wrap{grid-template-columns:1fr}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Retour en haut"><span class="flag" aria-hidden="true"><i></i><i></i><i></i></span>Sénégal 2050 <span class="long" style="font-weight:500;color:var(--muted)">· Masterplan</span></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#vision">Vision</a><a href="#axes">Axes</a><a href="#trajectoires">Trajectoires</a><a href="#objectifs">Objectifs</a><a href="#territoires">Territoires</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow kicker">Agenda national de transformation · Masterplan 2025–2034</p>
+          <h1>Sénégal<span class="yr">2050</span></h1>
+        </div>
+        <div style="display:grid;gap:26px">
+          <p class="lead">Faire du Sénégal un pays <strong>souverain, juste et prospère</strong>, ancré dans des valeurs fortes. Le Masterplan traduit cette vision en 4 axes, 27 objectifs stratégiques et des programmes de projets et de réformes sur dix ans.</p>
+          <blockquote class="quote" style="margin:0">« C'est le moment d'agir. L'histoire s'écrit maintenant. »<cite>Bassirou Diomaye Diakhar Faye, Président de la République</cite></blockquote>
+        </div>
+      </div>
+
+      <div class="horizon" aria-label="Horizon de planification">
+        <div class="ruler" id="ruler"></div>
+      </div>
+      <div class="counts" id="counts"></div>
+    </div>
+  </section>
+
+  <section class="block" id="vision">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>De la vision<br>au budget</h2>
+        <p>L'Agenda applique une chaîne de résultats qui va de la prospective à 25 ans jusqu'au budget annuel. Le Masterplan en est le premier maillon opérationnel : chaque axe se décline en objectifs stratégiques, puis en objectifs spécifiques, puis en programmes composés de projets (interventions sur le terrain) et de réformes (changements systémiques).</p>
+      </div>
+      <ol class="chain">
+        <li><div class="dur">25 ans</div><h3>Prospective</h3><p>Vision Sénégal 2050, 4 axes stratégiques.</p></li>
+        <li><div class="dur">10 ans</div><h3>Planification</h3><p>Masterplan 2025–2034 : objectifs, programmes, projets et réformes.</p></li>
+        <li><div class="dur">5 ans</div><h3>Programmation</h3><p>Stratégie nationale de développement 2025–2029 et choix ministériels.</p></li>
+        <li><div class="dur">3 ans</div><h3>Budgétisation</h3><p>Documents de programmation pluriannuelle des dépenses (DPPD) et budgets annuels.</p></li>
+        <li><div class="dur">Continu</div><h3>Suivi-évaluation</h3><p>Indicateurs mesurables et mises à jour périodiques du Masterplan.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="axes">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Quatre axes<br>stratégiques</h2>
+        <p>Chaque axe répond à un diagnostic et fixe des impacts attendus à l'horizon 2034. Sélectionnez un axe pour parcourir ses objectifs stratégiques, programmes et indicateurs.</p>
+      </div>
+      <div class="axes" id="axesGrid"></div>
+    </div>
+  </section>
+
+  <section class="block" id="trajectoires">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Trajectoires<br>2034 · 2050</h2>
+        <p>Les projections économiques du Gouvernement et le cadre macroéconomique visé. Les valeurs proviennent des tableaux 1 et 2 du Masterplan.</p>
+      </div>
+      <div class="traj">
+        <div class="panel">
+          <h3>Indicateurs économiques clés</h3>
+          <div class="mult" id="mult"></div>
+          <p class="src">Source : ANSD, projections du Gouvernement (Masterplan, tableau 1).</p>
+        </div>
+        <div class="panel">
+          <h3>Un cadre macroéconomique assaini, 2023 → 2034</h3>
+          <div class="legend"><span><i style="background:var(--muted)"></i>2023</span><span><i style="background:var(--accent)"></i>Cible 2034</span></div>
+          <div class="dumb" id="dumb"></div>
+          <p class="src">Sources : ANSD 2023, DGPPE 2024, Cour des comptes 2025 (Masterplan, tableau 2). Déficit courant : moyenne 2014–2023.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="objectifs">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Les 27 objectifs<br>stratégiques</h2>
+        <p>Recherchez un projet, une réforme ou un lieu : la liste indique combien d'éléments correspondent dans chaque objectif. Le lien de chaque fiche peut être partagé.</p>
+      </div>
+      <div class="filters" role="group" aria-label="Filtrer par axe" id="filters">
+        <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Ex. agropoles, TER, Kédougou, code minier…" aria-label="Rechercher dans les objectifs, projets et réformes"></div>
+      </div>
+      <div class="explorer">
+        <div class="oslist" id="oslist" role="list"></div>
+        <article class="fiche" id="fiche" aria-live="polite"></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="territoires">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Territoires</h2>
+        <p>Le Masterplan réorganise le territoire en 8 pôles économiques pour désengorger Dakar et porter à 65 % la part du PIB produite hors de la région de Dakar. Le cartogramme recense les projets et réformes des tableaux du Masterplan qui citent explicitement un lieu.</p>
+      </div>
+      <div class="terr">
+        <div class="panel">
+          <h3>Projets localisés par région</h3>
+          <p style="font-size:12.5px;color:var(--muted);margin-top:4px">Cartogramme schématique des 14 régions. Le chiffre indique le nombre d'éléments qui nomment un lieu de la région.</p>
+          <div class="carto-wrap" style="margin-top:16px"><div class="carto" id="carto"></div></div>
+          <h3 style="margin-top:26px">Les 8 pôles de croissance</h3>
+          <div class="poles" id="poles"></div>
+        </div>
+        <div>
+          <p class="eyebrow" id="locTitle" style="margin-bottom:12px">Tous les projets localisés</p>
+          <div class="loclist" id="loclist"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="tri" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap" style="padding-top:28px">
+    <div>
+      <p><strong>Source :</strong> Agenda national de transformation Sénégal 2050, Masterplan 2025–2034. Les objectifs, programmes, projets, réformes et indicateurs sont repris des tableaux du document.</p>
+      <p style="margin-top:10px">Application de consultation non officielle, réalisée à titre de démonstration. Elle ne remplace pas le document de référence.</p>
+    </div>
+    <div>
+      <p><strong>Lecture :</strong> « 2023 → 2034 » désigne la valeur de référence et la cible du Masterplan. Un tiret signale une valeur non renseignée dans le document.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const OS = /*OSDATA*/;
+const LOC = /*LOCDATA*/;
+
+const AXES = [
+  {n:1, c:'--a1', s:'--a1-soft', nom:'Économie compétitive et souveraine', court:'Économie',
+   defi:"Un modèle économique qui crée trop peu d'emplois décents : poids de l'informel, dépendance aux importations, ressources peu transformées, faible accès au financement.",
+   imp:[["Valeur ajoutée agricole","volume ×2","2023 → 2034"],["Déficit agroalimentaire","500 → <100","Mds FCFA"],["Transformation locale des filières","20 % → 60 %",""],["Exportations manufacturières (part)","15 % → 35 %",""],["Accès au financement des PME/PMI","22 % → 50 %",""]]},
+  {n:2, c:'--a2', s:'--a2-soft', nom:'Capital humain de qualité et équité sociale', court:'Capital humain',
+   defi:"Un capital humain sous-exploité : inadéquation formation-emploi, accès inégal à la santé, protection sociale partielle, obstacles à l'emploi des jeunes et des femmes.",
+   imp:[["Jeunes de 15-24 ans NEET","46,8 % → 10 %",""],["Indice de développement humain","0,51 → 0,65",""],["Couverture sociale","47 % → >70 %",""],["Pauvreté multidimensionnelle","38 % → 20 %",""],["Insertion des jeunes diplômés","30 % → 60 %",""]]},
+  {n:3, c:'--a3', s:'--a3-soft', nom:'Aménagement et développement durables', court:'Aménagement',
+   defi:"Un territoire déséquilibré : concentration à Dakar, urbanisation désordonnée, pression sur les ressources naturelles, érosion côtière et risques climatiques.",
+   imp:[["PIB généré hors région de Dakar","55 % → 65 %",""],["Accès des ménages à l'électricité","69 % → 100 %",""],["Émissions agricoles","12,4 → 2,5","MtCO₂e"],["Couverture forestière","+20 %",""],["Couverture internet haut débit","90 %",""]]},
+  {n:4, c:'--a4', s:'--a4-soft', nom:'Bonne gouvernance et engagement africain', court:'Gouvernance',
+   defi:"Un déficit de confiance entre l'État et les citoyens, une centralisation excessive et un rôle régional et continental encore sous-exploité.",
+   imp:[["Services administratifs essentiels digitalisés","100 % en 2030",""],["Citoyens satisfaits du service public","40 % → 80 %",""],["Réponse judiciaire dans les délais légaux","85 %",""],["Participation citoyenne locale","60 %",""],["Budget de coopération régionale","+50 %",""]]}
+];
+
+const RESUME = {
+"1.1":"Transformer le secteur agroalimentaire en moteur de croissance, de sécurité alimentaire et d'industrialisation : professionnalisation, mécanisation, agropoles, chaînes de valeur, agroécologie.",
+"1.2":"Faire des industries extractives un levier d'industrialisation : valorisation locale des ressources, pôles miniers régionaux, pétrochimie, formalisation de l'orpaillage.",
+"1.3":"Développer une plateforme manufacturière compétitive fondée sur les zones économiques spéciales, la logistique et l'énergie, dans des filières comme la métallurgie, le textile ou l'agro-industrie.",
+"1.4":"Faire des services à haute valeur ajoutée (numérique, tourisme, industries créatives) des vecteurs de croissance inclusive.",
+"1.5":"Garantir un cadre macroéconomique stable : politique budgétaire rigoureuse, rationalisation des dépenses, élargissement de l'assiette fiscale, régulation des prix.",
+"1.6":"Développer des financements innovants : obligations patriotiques, finance islamique, fonds souverains, partenariats public-privé structurés.",
+"1.7":"Améliorer l'environnement des affaires : simplification administrative, sécurisation du foncier, digitalisation des procédures, gouvernance économique.",
+"1.8":"Bâtir un écosystème de recherche et d'innovation connecté au secteur privé : financement de projets innovants, recherche appliquée, pôles technologiques.",
+"1.9":"Accélérer la transformation numérique : identité numérique, très haut débit, digitalisation des services publics, économie numérique.",
+"2.1":"Moderniser l'éducation et la formation professionnelle : enseignement technique, curricula adaptés, outils numériques, qualité à tous les niveaux.",
+"2.2":"Mobiliser la diaspora : transfert de compétences, investissement productif et influence diplomatique.",
+"2.3":"Étendre la couverture maladie universelle, construire des hôpitaux modernes, renforcer les ressources humaines et développer la télémédecine.",
+"2.4":"Bâtir une protection sociale inclusive : registre social unique, filets sociaux adaptatifs, transferts monétaires.",
+"2.5":"Garantir un accès équitable aux services sociaux de base (eau, assainissement, logement) et réduire les inégalités géographiques.",
+"2.6":"Mettre en œuvre une politique d'emploi dynamique : service civique professionnalisant, intermédiation régionale, appui à l'auto-emploi et à l'entrepreneuriat.",
+"2.7":"Faire du sport un vecteur d'intégration sociale, de santé publique et de rayonnement : infrastructures, talents, filières locales.",
+"2.8":"Faire de la culture un levier de cohésion et d'économie créative : filières ICC, financement de la création, patrimoine des territoires.",
+"3.1":"Promouvoir une urbanisation planifiée et équitable : pôles territoriaux, schémas directeurs d'aménagement, maîtrise foncière.",
+"3.2":"Préserver les écosystèmes : gestion durable des ressources, reboisement, lutte contre l'érosion, conservation de la biodiversité.",
+"3.3":"Accès universel à une énergie durable et moins chère : renouvelables, production décentralisée, efficacité énergétique.",
+"3.4":"Encourager la consommation responsable et l'économie circulaire : recyclage, éco-certification, gestion durable des déchets.",
+"3.5":"Améliorer la connectivité logistique et numérique : corridors, routes, rail, ports, aéroports.",
+"3.6":"Renforcer l'économie sociale et solidaire : mutuelles, coopératives et entreprises communautaires.",
+"4.1":"Renforcer l'État de droit et la citoyenneté : réforme judiciaire, modernisation des institutions, participation citoyenne.",
+"4.2":"Transformer l'administration : digitalisation, déconcentration, évaluation de la performance, compétences.",
+"4.3":"Renforcer la sécurité humaine, territoriale et numérique : prévention des conflits, cybersécurité, forces de sécurité.",
+"4.4":"Affirmer le leadership africain du Sénégal : organisations régionales, diplomatie économique, intégration africaine, marque Sénégal."
+};
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const axeOf = id => AXES[+id[0]-1];
+const fmt = n => n.toLocaleString('fr-FR');
+const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+
+// programme names: "Domaine : Programme A - Programme B"
+function splitProg(name){
+  let dom = '', rest = name;
+  const i = name.indexOf(' : ');
+  if (i > 0 && i < 70){ dom = name.slice(0,i); rest = name.slice(i+3); }
+  let parts = rest.split(/\s-\s|^-\s|(?<=\S)\s(?=Programme\s)|(?<=\S)\s(?=Stratégie\s)/).map(s=>s.trim()).filter(Boolean);
+  if (!dom && parts.length > 1 && !/^(Programme|Stratégie)/.test(parts[0])){ dom = parts.shift(); }
+  if (!parts.length){ parts=[dom]; dom=''; }
+  return {dom, titres:parts};
+}
+
+/* ---------- hero ---------- */
+(function(){
+  const marks = [[2025,'Lancement'],[2029,'Fin SND 1'],[2034,'Cibles Masterplan'],[2050,'Vision']];
+  const pos = y => (y-2025)/(2050-2025)*100;
+  let h = '<div class="base"></div>';
+  h += `<div class="seg" style="left:0;width:${pos(2034)}%;background:var(--accent);opacity:.9"></div>`;
+  h += `<div class="seg" style="left:0;width:${pos(2029)}%;background:var(--flag-y)"></div>`;
+  h += marks.map(([y,l])=>`<div class="tick" style="left:${pos(y)}%"><b>${y}</b><span>${l}</span></div>`).join('');
+  $('#ruler').innerHTML = h;
+  const nProg = OS.reduce((a,o)=>a+o.programmes.length,0);
+  const nPj = OS.reduce((a,o)=>a+o.programmes.reduce((b,p)=>b+p.projets.length,0),0);
+  const nRf = OS.reduce((a,o)=>a+o.programmes.reduce((b,p)=>b+p.reformes.length,0),0);
+  const nInd = OS.reduce((a,o)=>a+o.indicateurs.length,0);
+  const c = [[4,'axes stratégiques'],[OS.length,'objectifs stratégiques'],[nProg,'programmes'],[nPj,'projets'],[nRf,'réformes'],[nInd,'indicateurs suivis']];
+  $('#counts').innerHTML = c.map(([n,l])=>`<div><b>${fmt(n)}</b><span>${l}</span></div>`).join('');
+})();
+
+/* ---------- axes ---------- */
+$('#axesGrid').innerHTML = AXES.map(a=>{
+  const os = OS.filter(o=>o.id[0]==String(a.n));
+  const pj = os.reduce((b,o)=>b+o.programmes.reduce((x,p)=>x+p.projets.length,0),0);
+  return `<article class="axe" style="--c:var(${a.c})">
+    <div class="axe-top"><span class="axe-num">${a.n}</span><h3>${a.nom}</h3></div>
+    <p class="defi">${a.defi}</p>
+    <div><p class="eyebrow" style="margin-bottom:6px">Impacts attendus en 2034</p>
+    <div class="imp">${a.imp.map(([l,v,u])=>{
+      const m = v.split(' → ');
+      const val = m.length===2 ? `<em>${m[0]}</em> → <strong>${m[1]}</strong>` : `<strong>${v}</strong>`;
+      return `<div><span>${l}${u && !u.includes('→')?` <span style="color:var(--muted)">(${u})</span>`:''}</span><span class="v">${val}</span></div>`}).join('')}</div></div>
+    <div class="axe-foot"><button class="btn solid" data-axe="${a.n}">Voir les ${os.length} objectifs</button><span class="meta">${pj} projets</span></div>
+  </article>`}).join('');
+document.querySelectorAll('[data-axe]').forEach(b=>b.addEventListener('click',()=>{
+  state.axe = +b.dataset.axe; const first = OS.find(o=>o.id[0]==b.dataset.axe); state.sel = first.id;
+  renderAll(); location.hash = 'os-'+first.id.replace('.','-'); $('#objectifs').scrollIntoView();
+}));
+
+/* ---------- trajectoires ---------- */
+(function(){
+  const T1 = [["PIB (milliards FCFA)",[17228,36789,105000]],["Emplois (millions)",[4,6,13]],["Entreprises formelles pour 10 000 hab.",[10,120,284]],["Champions nationaux à l'export",[20,200,500]]];
+  $('#mult').innerHTML = T1.map(([t,v])=>{
+    const mx = Math.max(...v);
+    return `<div class="m"><h4>${t}</h4><div class="bars" style="margin-top:18px">${v.map((x,i)=>`<div class="${i==2?'last':''}" style="height:${Math.max(2,x/mx*100)}%"><b>${fmt(x)}</b></div>`).join('')}</div><div class="bars-x"><span>2022</span><span>2034</span><span>2050</span></div></div>`;
+  }).join('');
+  const T2 = [["Croissance du PIB",4.6,6.5,"%"],["Inflation",5.9,2,"%"],["Croissance de la masse salariale",10.6,6.9,"%"],["Déficit public (% PIB)",12.3,3,"%"],["Pression fiscale (% PIB)",18.3,25,"%"],["Dette publique (% PIB)",99.67,65,"%"],["Déficit courant (% PIB)",10.3,3,"%"]];
+  const W=300, pad=26;
+  $('#dumb').innerHTML = T2.map(([l,a,b])=>{
+    const mx = l.startsWith('Dette') ? 110 : 30;
+    const x = v => pad + (v/mx)*(W-2*pad);
+    const f = v => String(v).replace('.',',');
+    const up = b>a;
+    return `<div class="drow"><span class="lab">${l}</span><svg viewBox="0 0 ${W} 30" role="img" aria-label="${l} : ${f(a)} % en 2023, ${f(b)} % visé en 2034">
+      <line x1="${pad}" x2="${W-pad}" y1="15" y2="15" stroke="var(--line)" stroke-width="1"/>
+      <line x1="${x(a)}" x2="${x(b)}" y1="15" y2="15" stroke="var(--accent)" stroke-width="3" stroke-opacity=".35"/>
+      <circle cx="${x(a)}" cy="15" r="5" fill="var(--muted)"/>
+      <circle cx="${x(b)}" cy="15" r="6" fill="var(--accent)"/>
+      <text x="${x(a)}" y="${up?13:13}" dx="${up?-9:9}" dy="4" text-anchor="${up?'end':'start'}" font-size="11" font-family="IBM Plex Mono, monospace" fill="var(--muted)">${f(a)}</text>
+      <text x="${x(b)}" y="13" dx="${up?10:-10}" dy="4" text-anchor="${up?'start':'end'}" font-size="11" font-weight="500" font-family="IBM Plex Mono, monospace" fill="var(--ink)">${f(b)}</text>
+    </svg></div>`;
+  }).join('') + `<p style="font-size:11.5px;color:var(--muted);margin-top:6px">Échelle 0–30 % (0–110 % pour la dette).</p>`;
+})();
+
+/* ---------- explorateur ---------- */
+const state = {axe:0, q:'', sel:'1.1', tab:'prog'};
+try { const t = localStorage.getItem('sn2050-tab'); if (t) state.tab = t; } catch(e){}
+
+function hitCount(o, q){
+  if (!q) return 0;
+  let n = 0;
+  const t = s => { if (norm(s).includes(q)) n++; };
+  t(o.titre); o.objectifs.forEach(ob=>{t(ob.nom); ob.resultats.forEach(t)});
+  o.programmes.forEach(p=>{t(p.nom); p.projets.forEach(t); p.reformes.forEach(t)});
+  o.indicateurs.forEach(r=>t(r[0]));
+  return n;
+}
+function hl(s){
+  const e = esc(s); if (!state.q) return e;
+  const ns = norm(e); const i = ns.indexOf(state.q); if (i<0) return e;
+  return e.slice(0,i)+'<mark>'+e.slice(i,i+state.q.length)+'</mark>'+e.slice(i+state.q.length);
+}
+
+function renderFilters(){
+  const f = $('#filters'); const search = f.querySelector('.search');
+  f.querySelectorAll('.chip').forEach(c=>c.remove());
+  const chips = [{n:0,court:'Tous les axes',c:'--ink'}].concat(AXES);
+  chips.forEach(a=>{
+    const b = document.createElement('button');
+    b.className='chip'; b.type='button'; b.style.setProperty('--c',`var(${a.c})`);
+    b.setAttribute('aria-pressed', state.axe===a.n);
+    b.innerHTML = (a.n?`<span class="dot"></span>Axe ${a.n} · `:'')+a.court;
+    b.onclick = ()=>{ state.axe=a.n; const vis=visible(); if (vis.length && !vis.find(o=>o.id===state.sel)) state.sel=vis[0].id; renderAll(); };
+    f.insertBefore(b, search);
+  });
+}
+function visible(){
+  return OS.filter(o=>(!state.axe || o.id[0]==String(state.axe)) && (!state.q || hitCount(o,state.q)>0));
+}
+function renderList(){
+  const vis = visible();
+  const L = $('#oslist');
+  if (!vis.length){ L.innerHTML = `<div class="empty">Aucun objectif ne contient « ${esc($('#q').value)} ». Essayez un autre terme ou retirez le filtre d'axe.</div>`; return; }
+  L.innerHTML = vis.map(o=>{
+    const a = axeOf(o.id); const h = hitCount(o,state.q);
+    return `<button class="osi" role="listitem" data-id="${o.id}" aria-current="${o.id===state.sel}" style="--c:var(${a.c});--soft:var(${a.s})">
+      <span class="id">OS ${o.id}</span><span class="t">${esc(o.titre)}</span>${state.q?`<span class="hits">${h} correspondance${h>1?'s':''}</span>`:''}</button>`;
+  }).join('');
+  L.querySelectorAll('.osi').forEach(b=>b.onclick=()=>{ state.sel=b.dataset.id; renderList(); renderFiche(); try{history.replaceState(null,'','#os-'+state.sel.replace('.','-'))}catch(e){location.hash='os-'+state.sel.replace('.','-')} if (innerWidth<900) $('#fiche').scrollIntoView({block:'start'}); });
+}
+function renderFiche(){
+  const vis = visible();
+  let o = OS.find(x=>x.id===state.sel);
+  if (vis.length && !vis.includes(o)) { o = vis[0]; state.sel=o.id; }
+  const F = $('#fiche');
+  if (!vis.length){ F.innerHTML = `<div class="tabpanel"><div class="empty">La fiche apparaîtra ici dès qu'un objectif correspond à la recherche.</div></div>`; return; }
+  const a = axeOf(o.id);
+  F.style.setProperty('--c',`var(${a.c})`); F.style.setProperty('--soft',`var(${a.s})`);
+  const nPj = o.programmes.reduce((b,p)=>b+p.projets.length,0), nRf = o.programmes.reduce((b,p)=>b+p.reformes.length,0);
+  const tabs = [['prog','Programmes, projets et réformes'],['obj','Objectifs spécifiques'],['ind',`Indicateurs (${o.indicateurs.length})`]];
+  let body = '';
+  if (state.tab==='prog'){
+    body = o.programmes.map((p,i)=>{
+      const {dom,titres} = splitProg(p.nom);
+      const open = i===0 || (state.q && (p.projets.concat(p.reformes,[p.nom]).some(s=>norm(s).includes(state.q))));
+      return `<details class="prog" ${open?'open':''}><summary><div>${dom?`<div class="dom">${esc(dom)}</div>`:''}<div class="pt">${hl(titres[0])}${titres.slice(1).map(t=>`<span>${hl(t)}</span>`).join('')}</div></div><span class="cnt">${p.projets.length} proj. · ${p.reformes.length} réf.</span></summary>
+      <div class="prog-body"><div class="col"><h5>Projets</h5>${p.projets.length?`<ul>${p.projets.map(x=>`<li>${hl(x)}</li>`).join('')}</ul>`:'<p style="font-size:13px;color:var(--muted)">Aucun projet listé.</p>'}</div>
+      <div class="col ref"><h5>Réformes</h5>${p.reformes.length?`<ul>${p.reformes.map(x=>`<li>${hl(x)}</li>`).join('')}</ul>`:'<p style="font-size:13px;color:var(--muted)">Aucune réforme listée.</p>'}</div></div></details>`;
+    }).join('');
+  } else if (state.tab==='obj'){
+    body = o.objectifs.map((ob,i)=>`<div class="obj"><span class="n">${o.id}.${i+1}</span><h4>${hl(ob.nom||'Objectif spécifique')}</h4>${ob.resultats.length?`<ul>${ob.resultats.map(r=>`<li>${hl(r)}</li>`).join('')}</ul>`:''}</div>`).join('');
+  } else {
+    body = o.indicateurs.length ? `<div class="ind-wrap"><table class="ind"><thead><tr><th>Indicateur</th><th class="num">2023</th><th></th><th class="num">Cible 2034</th></tr></thead><tbody>${
+      o.indicateurs.map(r=>`<tr><td>${hl(r[0])}</td><td class="num">${esc(r[1]||'–')}</td><td class="arrow">→</td><td class="num to">${esc(r[2]||'–')}</td></tr>`).join('')}</tbody></table></div>`
+      : `<div class="empty">Le Masterplan ne présente pas de tableau d'indicateurs chiffrés pour cet objectif.</div>`;
+  }
+  F.innerHTML = `<div class="fiche-head"><p class="eyebrow">Axe ${a.n} · ${a.nom}</p><h3>OS ${o.id} · ${esc(o.titre)}</h3><p class="resume">${RESUME[o.id]||''}</p>
+    <div class="fiche-stats"><span><b>${o.objectifs.length}</b>objectifs spécifiques</span><span><b>${o.programmes.length}</b>programmes</span><span><b>${nPj}</b>projets</span><span><b>${nRf}</b>réformes</span></div></div>
+    <div class="tabs" role="tablist">${tabs.map(([k,l])=>`<button class="tab" role="tab" data-tab="${k}" aria-selected="${state.tab===k}">${l}</button>`).join('')}</div>
+    <div class="tabpanel" role="tabpanel">${body}</div>`;
+  F.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{ state.tab=t.dataset.tab; try{localStorage.setItem('sn2050-tab',state.tab)}catch(e){} renderFiche(); });
+}
+function renderAll(){ renderFilters(); renderList(); renderFiche(); }
+let qt; $('#q').addEventListener('input', e=>{ clearTimeout(qt); qt=setTimeout(()=>{ state.q = norm(e.target.value.trim()); renderList(); renderFiche(); },120); });
+
+function fromHash(){
+  const m = location.hash.match(/^#os-(\d)-(\d)$/);
+  if (m){ const id=m[1]+'.'+m[2]; if (OS.find(o=>o.id===id)){ state.sel=id; if (state.axe && state.axe!=+m[1]) state.axe=0; renderAll(); setTimeout(()=>$('#objectifs').scrollIntoView(),0); } }
+}
+window.addEventListener('hashchange', fromHash);
+renderAll(); fromHash();
+
+/* ---------- territoires ---------- */
+(function(){
+  const REG = [["Saint-Louis",1,3],["Matam",1,4],["Dakar",2,1],["Thiès",2,2],["Louga",2,3],["Fatick",3,2],["Diourbel",3,3],["Kaffrine",3,4],["Tambacounda",3,5],["Kaolack",4,3],["Ziguinchor",5,2],["Sédhiou",5,3],["Kolda",5,4],["Kédougou",5,5]];
+  // grille : 5 colonnes ; colonne 1 = océan sous Dakar
+  const counts = r => LOC.filter(l=>l.regions.includes(r)).length;
+  const C = $('#carto');
+  let h = `<div class="sea" style="grid-row:3/6">Atlantique</div><div class="gambia" style="grid-column:2/5;grid-row:4">GAMBIE</div>`;
+  h += REG.map(([r,row,col])=>{
+    const n = counts(r);
+    const mx = 8, t = n/mx;
+    const bg = n ? `color-mix(in srgb, var(--accent) ${Math.round(12+t*70)}%, var(--surface))` : 'var(--surface)';
+    const fg = t>0.45 ? 'var(--bg)' : 'var(--ink)';
+    return `<button class="tile" data-r="${r}" data-n="${n}" aria-pressed="false" style="grid-row:${row};grid-column:${col};background:${bg};color:${n?fg:'var(--muted)'}"><span>${r}</span><b>${n}</b></button>`;
+  }).join('');
+  C.innerHTML = h;
+  // Kaolack sits on row 4 with Gambia band: shift Gambia to cols 2..2 & 4 to avoid overlap
+  C.querySelector('.gambia').style.gridColumn = '2/3';
+  const POLES = ['Dakar','Thiès','Diourbel-Touba','Nord','Centre','Nord-Est','Sud-Est','Sud'];
+  $('#poles').innerHTML = POLES.map(p=>`<div class="pole"><b>${p}</b><span>pôle de croissance</span></div>`).join('');
+  function list(r){
+    const items = r ? LOC.filter(l=>l.regions.includes(r)) : LOC;
+    $('#locTitle').textContent = r ? `${items.length} élément${items.length>1?'s':''} · région de ${r}` : `Tous les projets localisés (${LOC.length})`;
+    $('#loclist').innerHTML = items.map(l=>{ const a=axeOf(l.os); const reg = l.regions.length? l.regions.join(' · ') : 'Casamance';
+      return `<div class="loc" style="--c:var(${a.c})"><span class="id">OS ${l.os}</span><p>${esc(l.txt)}</p><span class="rg">${reg}</span><a href="#os-${l.os.replace('.','-')}">Ouvrir l'objectif ${l.os}</a></div>`}).join('');
+  }
+  C.querySelectorAll('.tile').forEach(t=>t.onclick=()=>{
+    const on = t.getAttribute('aria-pressed')==='true';
+    C.querySelectorAll('.tile').forEach(x=>x.setAttribute('aria-pressed','false'));
+    if (!on){ t.setAttribute('aria-pressed','true'); list(t.dataset.r); } else list(null);
+  });
+  list(null);
+})();
+</script>
