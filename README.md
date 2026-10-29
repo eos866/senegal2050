@@ -11,6 +11,23 @@ Son ergonomie reprend celle de l'application CAP 28 (plan stratégique du Dépar
 - **Masterplan 2025-2034** : chaîne de planification, 4 axes et impacts attendus, trajectoires économiques ;
 - **Documents** et **Arborescence** (axes → objectifs → programmes).
 
+## Charte graphique
+
+Les jetons de la charte sont regroupés dans `charte.css` (également intégrés à `index.html`).
+
+| Rôle | Clair | Sombre |
+|---|---|---|
+| Fond / surface | `#F3F6F1` / `#FFFFFF` | `#0E1511` / `#16201A` |
+| Texte / texte secondaire | `#13201A` / `#56665C` | `#E6EDE8` / `#97A89D` |
+| Accent (vert baobab) | `#0A6B3B` | `#4CC38A` |
+| Drapeau | vert `#00853F` · or `#F2C230` · rouge `#D9262E` | identique |
+| Axe 1 · Économie (ocre) | `#B87A06` | `#E3A83A` |
+| Axe 2 · Capital humain (latérite) | `#BF3B28` | `#EA7560` |
+| Axe 3 · Aménagement (vert) | `#277A4A` | `#5BC086` |
+| Axe 4 · Gouvernance (bleu Atlantique) | `#1D5C88` | `#5EA9DD` |
+
+Typographies (Google Fonts) : **Archivo** étroit et gras pour les titres et les chiffres, **IBM Plex Sans** pour le texte, **IBM Plex Mono** pour les étiquettes, codes et valeurs. Signes distinctifs : mini-drapeau dans l'en-tête, filet tricolore en pied de page, frise d'horizon 2025 → 2029 → 2034 → 2050, titres de section en capitales.
+
 ## Utilisation
 
 L'application tient dans un seul fichier `index.html`, sans dépendance à installer. Ouvrez-le dans un navigateur ou publiez le dépôt avec GitHub Pages (Settings → Pages → branche `main`, dossier `/`).
@@ -20,6 +37,7 @@ L'application tient dans un seul fichier `index.html`, sans dépendance à insta
 | Chemin | Rôle |
 |---|---|
 | `index.html` | Application (données intégrées) |
+| `charte.css` | Jetons et styles de la charte graphique |
 | `data/objectifs.json` | Les 27 objectifs stratégiques : objectifs spécifiques, programmes, projets, réformes, indicateurs |
 | `data/projets-localises.json` | Projets et réformes citant un lieu, rattachés à leur région |
 | `scripts/extraire_tableaux.py` | Extraction des tableaux du PDF (pdfplumber) |
