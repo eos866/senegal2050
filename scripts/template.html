@@ -734,17 +734,10 @@ function mapSVG(opts){
 function viewTerritoires(){
   const POLES = ['Dakar','Thiès','Diourbel-Touba','Nord','Centre','Nord-Est','Sud-Est','Sud'];
   const pills = [{n:0,nom:'Tous les axes'}].concat(AXES).map(a=>`<button class="pill ${a.n?'hasdot':''}" data-taxe="${a.n}" style="--pa:${a.c||'transparent'}" aria-pressed="${TERR.axe===a.n}">${a.n?`Axe ${a.n} · ${a.court}`:a.nom}</button>`).join('');
-  $('#app').innerHTML = `<header class="page-head"><h1>Territoires</h1><p>Le Masterplan réorganise le territoire en 8 pôles économiques intégrés pour désengorger Dakar et porter à 65 % la part du PIB national générée hors de la région de Dakar (55 % en 2023). Le cartogramme et la carte situent les projets et réformes des tableaux du Masterplan qui citent explicitement un lieu.</p></header>
+  $('#app').innerHTML = `<header class="page-head"><h1>Territoires</h1><p>Le Masterplan réorganise le territoire en 8 pôles économiques intégrés pour désengorger Dakar et porter à 65 % la part du PIB national générée hors de la région de Dakar (55 % en 2023). La carte et le cartogramme situent les projets et réformes des tableaux du Masterplan qui citent explicitement un lieu.</p></header>
   <div class="pills">${pills}</div>
   <div class="terr2">
    <div class="leftcol">
-    <div class="panel cartopanel">
-      <h3 class="pt">Projets localisés par région</h3>
-      <p class="pd">Cartogramme schématique des 14 régions. Cliquez sur une région pour filtrer la liste et la carte.</p>
-      <div style="overflow-x:auto;margin-top:14px"><div class="carto" id="carto"></div></div>
-      <h3 class="pt" style="margin-top:22px">Les 8 pôles de croissance</h3>
-      <div class="poles">${POLES.map(p=>`<div class="pole">${p}</div>`).join('')}</div>
-    </div>
     <div class="panel mappanel">
       <h3 class="pt" style="margin-bottom:12px">Cartographie des projets localisés</h3>
       <div class="maptools">
@@ -760,6 +753,13 @@ function viewTerritoires(){
         <div class="tip" id="maptip" hidden></div>
       </div>
       <p class="src">Limites administratives : GADM 4.1 (licence non commerciale), reprises de l'Observatoire des territoires du Sénégal. Lieux : OpenStreetMap ; sites hors agglomération positionnés de façon approchée. Un projet citant plusieurs lieux est compté dans chaque région concernée.</p>
+    </div>
+    <div class="panel cartopanel">
+      <h3 class="pt">Projets localisés par région</h3>
+      <p class="pd">Cartogramme schématique des 14 régions. Cliquez sur une région pour filtrer la liste et la carte.</p>
+      <div style="overflow-x:auto;margin-top:14px"><div class="carto" id="carto"></div></div>
+      <h3 class="pt" style="margin-top:22px">Les 8 pôles de croissance</h3>
+      <div class="poles">${POLES.map(p=>`<div class="pole">${p}</div>`).join('')}</div>
     </div>
    </div>
     <div class="side">
