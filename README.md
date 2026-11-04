@@ -8,6 +8,7 @@ Son ergonomie reprend celle de l'application CAP 28 (plan stratégique du Dépar
 - **Fiches objectif** (`#os-1-1` … `#os-4-4`) : objectifs spécifiques et résultats attendus, programmes avec projets et réformes, indicateurs (référence 2023 → cible 2034), projets localisés ;
 - **Table des indicateurs** : les indicateurs du Masterplan, filtrables par axe ;
 - **Territoires** : carte des 14 régions (aplats ou cercles proportionnels, limites départementales), lieux des projets colorés par axe, tracé de la ligne Dakar-Kidira, encart sur la presqu'île du Cap-Vert, puis cartogramme schématique des régions et 8 pôles de croissance ; un clic sur une région (carte ou cartogramme) ou sur un lieu filtre la liste et zoome la carte, un clic sur un projet de la liste l'affiche seul sur la carte ;
+- **Suivi** (données fictives) : avancement simulé des indicateurs chiffrés (référence 2023 → cible 2034) et état des projets selon trois scénarios (optimiste, tendanciel, pessimiste) et quatre échéances (2025, 2026, 2027, 2029) ; indicateurs clés, statut par indicateur (en avance, dans les temps, en retard, critique), avancement par axe, synthèse rédigée automatiquement, tableau des 27 objectifs dépliable avec trajectoires ;
 - **Masterplan 2025-2034** : chaîne de planification, 4 axes et impacts attendus, trajectoires économiques ;
 - **Documents** et **Arborescence** (axes → objectifs → programmes).
 
@@ -61,6 +62,7 @@ python3 -c "t=open('scripts/template.html').read(); t=t.replace('/*OSDATA*/',ope
 - Les données sont extraites automatiquement des tableaux du PDF ; quelques intitulés de projets ou de réformes peuvent être découpés imparfaitement.
 - Limites administratives : GADM 4.1, licence **non commerciale**, reprises de l'Observatoire des territoires du Sénégal. Pour un usage commercial, les remplacer par les limites officielles (DTGC, ANAT) ou geoBoundaries (CC BY 4.0).
 - Lieux : OpenStreetMap (ODbL) ; les sites hors agglomération (Sangomar, delta du Saloum, Casamance, Ndayane) sont positionnés de façon approchée.
+- L'onglet Suivi repose sur des **valeurs simulées** (graine fixe, résultats reproductibles) : elles ne reflètent pas la mise en œuvre réelle du Masterplan.
 - Application non officielle, réalisée à titre de démonstration. Elle ne remplace pas le document de référence.
 
 ## Source

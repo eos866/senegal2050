@@ -354,6 +354,64 @@ svg.map .pin:hover circle,svg.map .pin:focus-visible circle,svg.map .pin.sel cir
 .cartopanel .poles{margin-top:10px}
 .side .loclist{max-height:calc(100vh - 140px)}
 
+/* suivi */
+:root{--st-ok2:#1E7A4C;--st-ok:#5FA56E;--st-warn:#D99A1E;--st-bad:#C2412D;--pj0:#C9D1C6;--pj1:#9DB9C9;--pj2:#3F86B5;--pj3:#0A6B3B}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--st-ok2:#4CC38A;--st-ok:#8FCB97;--st-warn:#E8B04A;--st-bad:#EF7A63;--pj0:#3A4A40;--pj1:#55707F;--pj2:#5EA9DD;--pj3:#4CC38A}}
+:root[data-theme="dark"]{--st-ok2:#4CC38A;--st-ok:#8FCB97;--st-warn:#E8B04A;--st-bad:#EF7A63;--pj0:#3A4A40;--pj1:#55707F;--pj2:#5EA9DD;--pj3:#4CC38A}
+.fictif{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding:12px 16px;border-radius:10px;border:1px dashed var(--st-warn);background:color-mix(in srgb,var(--st-warn) 10%,var(--surface));font-size:14px}
+.fictif .ico{color:var(--st-warn);width:20px;height:20px;margin-top:1px}
+.suivi-tools{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:flex-end;margin-top:18px}
+.suivi-tools .lab{font-size:10.5px;color:var(--muted);margin-bottom:6px}
+.scdesc{flex:1 1 280px;font-size:13.5px;color:var(--muted);max-width:60ch}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:grid;gap:4px;min-width:0}
+.kpi .caps{font-size:10.5px;color:var(--muted)}
+.kpi b{font-family:var(--display);font-weight:800;font-stretch:85%;font-size:40px;line-height:1;font-variant-numeric:tabular-nums}
+.kpi b em{font-style:normal;font-size:20px;color:var(--muted);font-weight:600}
+.kpi small{font-size:12.5px;color:var(--muted)}
+@media (max-width:900px){.kpis{grid-template-columns:1fr 1fr}}
+.stack{display:flex;height:16px;border-radius:4px;overflow:hidden;margin-top:12px;gap:2px}
+.stack i{display:block;min-width:3px}
+.stleg{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:13px}
+.stleg span{display:inline-flex;align-items:center;gap:6px}
+.stleg i{width:10px;height:10px;border-radius:2px}
+.stleg b{font-family:var(--mono);font-weight:500}
+.axbars{display:grid;gap:10px;margin-top:12px}
+.axbar{display:grid;grid-template-columns:28px minmax(0,140px) minmax(0,1fr) 48px;gap:10px;align-items:center}
+.axbar .an{font-family:var(--display);font-weight:900;font-stretch:70%;font-size:26px;color:var(--c);line-height:1}
+.axbar .al{font-size:14px;font-weight:600;line-height:1.2}
+.axbar .al small{display:block;font-weight:400;font-size:11.5px;color:var(--muted)}
+.axbar .av{font-family:var(--mono);font-size:13px;text-align:right}
+.pbar{display:block;height:8px;border-radius:4px;background:var(--sunk);overflow:hidden;min-width:60px}
+.pbar i{display:block;height:100%;border-radius:4px}
+.spill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;white-space:nowrap;padding:3px 9px;border-radius:999px;color:var(--ink);background:color-mix(in srgb,var(--sc) 16%,var(--surface));border:1px solid color-mix(in srgb,var(--sc) 45%,var(--surface))}
+.spill::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--sc)}
+.spill.none{--sc:var(--muted);font-weight:500;color:var(--muted)}
+.lecture{display:grid;gap:8px;font-size:14px;margin-top:8px}
+.sech{font-family:var(--display);font-weight:850;font-stretch:78%;font-size:clamp(26px,3.4vw,38px);text-transform:uppercase;line-height:.95;margin-top:40px}
+.suivi-t .srow{cursor:pointer}
+.suivi-t .srow:hover td{background:var(--soft)}
+.suivi-t .srow.open td{background:var(--cbg)}
+.suivi-t .srow:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.suivi-t .stt{font-size:14px}
+.suivi-t .os{margin-right:6px}
+.suivi-t .avc{min-width:170px}
+.suivi-t .avc,.suivi-t td:nth-child(5){white-space:nowrap}
+.suivi-t .avc .pbar{display:inline-block;width:110px;vertical-align:middle;margin-right:8px}
+.suivi-t .mono{font-family:var(--mono);font-size:12.5px}
+.suivi-t .small{font-size:11.5px;color:var(--muted);margin-left:6px}
+.suivi-t .mini{display:inline-flex;width:80px;height:8px;border-radius:3px;overflow:hidden;vertical-align:middle;gap:1px}
+.suivi-t .mini i{display:block}
+.suivi-t .chev .ico{transition:transform .15s;color:var(--muted)}
+.suivi-t .srow.open .chev .ico{transform:rotate(180deg)}
+.suivi-t .sdet>td{background:var(--soft);padding:10px 14px 14px}
+.tbl.inner{min-width:720px;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+.tbl.inner th em{font-style:normal;color:var(--st-warn)}
+.spark{width:120px;height:30px;display:block}
+.spark .sp-exp{fill:none;stroke:var(--muted);stroke-width:1.2;stroke-dasharray:3 2}
+.spark .sp-real{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.muted{color:var(--muted)}
+
 footer{margin-top:64px;background:var(--surface);font-size:13px;color:var(--muted)}
 footer .wrap{display:flex;flex-wrap:wrap;gap:12px 30px;justify-content:space-between;padding-block:24px 32px}
 footer strong{color:var(--ink)}
@@ -369,6 +427,7 @@ footer strong{color:var(--ink)}
       <a href="#indicateurs" data-r="indicateurs">Table des indicateurs</a>
       <a href="#territoires" data-r="territoires">Territoires</a>
       <a href="#documents" data-r="documents">Documents</a>
+      <a href="#suivi" data-r="suivi">Suivi</a>
       <a href="#masterplan" data-r="masterplan">Masterplan 2025-2034</a>
     </nav>
   </div>
@@ -883,6 +942,136 @@ function drawMap(){
   });
 }
 
+/* ---------- suivi (scénarios fictifs) ---------- */
+const SUIVI = {sc:'tendanciel', an:2026, open:null, axe:0, statut:''};
+const SCEN = {
+  optimiste:  {nom:'Optimiste',  m:1.12, sd:.22, pj:[.05,.15,.50,.30], desc:"Mise en œuvre soutenue : financements mobilisés à temps, réformes adoptées sans retard majeur."},
+  tendanciel: {nom:'Tendanciel', m:.86,  sd:.30, pj:[.15,.30,.45,.10], desc:"Rythme proche des plans précédents : avancées réelles mais retards fréquents sur les grands projets."},
+  pessimiste: {nom:'Pessimiste', m:.55,  sd:.32, pj:[.35,.35,.27,.03], desc:"Contraintes budgétaires et chocs externes : nombreux projets décalés, réformes ralenties."}
+};
+const STATUTS = [
+  {k:'avance', nom:'En avance',      c:'var(--st-ok2)'},
+  {k:'ok',     nom:'Dans les temps', c:'var(--st-ok)'},
+  {k:'retard', nom:'En retard',      c:'var(--st-warn)'},
+  {k:'crit',   nom:'Critique',       c:'var(--st-bad)'}
+];
+const PJ_ST = ['Non démarré','En préparation','En cours','Achevé'];
+function rng(seed){ let h=2166136261; for (const ch of seed) { h^=ch.charCodeAt(0); h=Math.imul(h,16777619); } return ()=>{ h+=0x6D2B79F5; let t=h; t=Math.imul(t^t>>>15,t|1); t^=t+Math.imul(t^t>>>7,t|61); return ((t^t>>>14)>>>0)/4294967296; }; }
+function gauss(r){ return Math.sqrt(-2*Math.log(r()||1e-9))*Math.cos(2*Math.PI*r()); }
+function numv(s){ s=String(s||'').trim(); if(!/^[<>~≈]?\s*-?[\d  ]+(?:[.,]\d+)?\s*%?$/.test(s)) return null; return parseFloat(s.replace(/[^\d.,-]/g,'').replace(',','.')); }
+function fmtv(v,ref){ const pct=/%/.test(ref); const d=Math.abs(v)>=100?0:Math.abs(v)>=10?1:2; return v.toLocaleString('fr-FR',{maximumFractionDigits:d})+(pct?' %':''); }
+function statutOf(r){ return r>=1.05?0:r>=.9?1:r>=.6?2:3; }
+
+// simulation d'un indicateur : trajectoire annuelle 2023 → année de suivi
+function simInd(o,i,row){
+  const a=numv(row[1]), b=numv(row[2]); if (a==null||b==null||a===b) return null;
+  const S=SCEN[SUIVI.sc], r=rng(SUIVI.sc+'|'+o.id+'|'+i);
+  const f = Math.max(-.25, S.m + S.sd*gauss(r));          // rythme relatif à la trajectoire prévue
+  const traj=[]; let p=0;
+  for (let y=2024;y<=SUIVI.an;y++){ const e=(y-2023)/11; p = Math.min(1.15, e*f + (r()-.5)*.03); traj.push(p); }
+  const e=(SUIVI.an-2023)/11, ratio = e? p/e : 1;
+  return {lib:row[0], ref:row[1], cible:row[2], a, b, p, e, ratio, st:statutOf(ratio), val:a+p*(b-a), attendu:a+e*(b-a), traj};
+}
+function simOS(o){
+  const inds = o.indicateurs.map((row,i)=>simInd(o,i,row)).filter(Boolean);
+  const S=SCEN[SUIVI.sc]; const pj = o.programmes.flatMap(p=>p.projets);
+  const pst=[0,0,0,0]; pj.forEach((t,i)=>{ const r=rng('pj|'+SUIVI.sc+'|'+o.id+'|'+i)(); const shift=(SUIVI.an-2025)*.06; let c=0,k=0; const w=S.pj.map((x,j)=>Math.max(0,x+(j<2?-shift/2:shift/2))); const tw=w.reduce((s,x)=>s+x,0); for(;k<4;k++){ c+=w[k]/tw; if(r<c) break; } pst[Math.min(k,3)]++; });
+  const av = inds.length ? inds.reduce((s,x)=>s+Math.max(0,Math.min(1.2,x.ratio)),0)/inds.length : null;
+  const pjAv = pj.length ? (pst[1]*.15+pst[2]*.55+pst[3])/pj.length : null;
+  const score = av!=null ? av : (pjAv!=null ? pjAv/((SUIVI.an-2023)/11*2.2) : null);
+  return {o, inds, pst, nPj:pj.length, av, pjAv, st: score==null?null:statutOf(score), score};
+}
+function sparkline(traj,st){
+  const w=120,h=30, n=traj.length; if(!n) return '';
+  const exp = Array.from({length:n},(_,i)=>(i+1)/11);
+  const lo=Math.min(0,...traj), hi=Math.max(exp[n-1],...traj)*1.15||1;
+  const xs=i=>4+(i+1)/(n)*(w-8), ys=v=>h-4-(v-lo)/(hi-lo)*(h-8);
+  const path = 'M4,'+ys(0)+traj.map((v,i)=>`L${xs(i).toFixed(1)},${ys(v).toFixed(1)}`).join('');
+  const pe = 'M4,'+ys(0)+exp.map((v,i)=>`L${xs(i).toFixed(1)},${ys(v).toFixed(1)}`).join('');
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" aria-hidden="true"><path d="${pe}" class="sp-exp"/><path d="${path}" style="stroke:${STATUTS[st].c}" class="sp-real"/><circle cx="${xs(n-1).toFixed(1)}" cy="${ys(traj[n-1]).toFixed(1)}" r="2.6" style="fill:${STATUTS[st].c}"/></svg>`;
+}
+function bar(p,st){ const w=Math.max(0,Math.min(100,p*100)); return `<span class="pbar"><i style="width:${w.toFixed(0)}%;background:${st==null?'var(--muted)':STATUTS[st].c}"></i></span>`; }
+function pill(st){ return st==null?'<span class="spill none">Non mesurable</span>':`<span class="spill" style="--sc:${STATUTS[st].c}">${STATUTS[st].nom}</span>`; }
+
+function lecture(all){
+  const S=SCEN[SUIVI.sc]; const inds=all.flatMap(x=>x.inds);
+  const cnt=[0,0,0,0]; inds.forEach(x=>cnt[x.st]++);
+  const okp=Math.round((cnt[0]+cnt[1])/inds.length*100);
+  const byAx=AXES.map(a=>{ const xs=all.filter(x=>x.o.id[0]==a.n&&x.av!=null); return {a, av: xs.reduce((s,x)=>s+x.av,0)/Math.max(1,xs.length)}; }).sort((p,q)=>q.av-p.av);
+  const worst=all.filter(x=>x.av!=null).sort((p,q)=>p.av-q.av).slice(0,3);
+  const best=all.filter(x=>x.av!=null).sort((p,q)=>q.av-p.av)[0];
+  const pj=all.reduce((s,x)=>s.map((v,i)=>v+x.pst[i]),[0,0,0,0]); const tpj=pj.reduce((s,x)=>s+x,0);
+  return `<p>Dans le scénario <b>${S.nom.toLowerCase()}</b>, fin ${SUIVI.an}, <b>${okp} %</b> des ${inds.length} indicateurs chiffrés suivent ou dépassent la trajectoire linéaire vers les cibles 2034 ; ${cnt[3]} sont en situation critique.</p>
+  <p>L'axe le plus avancé est <b>${byAx[0].a.court.toLowerCase()}</b> (${Math.round(byAx[0].av*100)} % du rythme attendu), le moins avancé <b>${byAx[3].a.court.toLowerCase()}</b> (${Math.round(byAx[3].av*100)} %). L'objectif le mieux engagé est l'OS ${best.o.id} ; les plus en retard sont ${worst.map(x=>`l'OS ${x.o.id}`).join(', ').replace(/, ([^,]*)$/,' et $1')}.</p>
+  <p>Côté projets, ${Math.round(pj[2]/tpj*100)} % sont en cours et ${Math.round(pj[3]/tpj*100)} % achevés ; ${Math.round(pj[0]/tpj*100)} % n'ont pas démarré. Points d'attention : sécuriser le financement des projets non démarrés des objectifs en retard et prioriser les réformes qui conditionnent ces indicateurs.</p>`;
+}
+
+function viewSuivi(){
+  const all = OS.map(simOS);
+  const inds = all.flatMap(x=>x.inds);
+  const cnt=[0,0,0,0]; inds.forEach(x=>cnt[x.st]++);
+  const pj=all.reduce((s,x)=>s.map((v,i)=>v+x.pst[i]),[0,0,0,0]); const tpj=pj.reduce((s,x)=>s+x,0);
+  const avg = inds.reduce((s,x)=>s+Math.max(0,Math.min(1.2,x.ratio)),0)/inds.length;
+  const nonMes = OS.reduce((s,o)=>s+o.indicateurs.length,0) - inds.length;
+  const scBtns = Object.entries(SCEN).map(([k,s])=>`<button data-sc="${k}" aria-pressed="${SUIVI.sc===k}">${s.nom}</button>`).join('');
+  const anBtns = [2025,2026,2027,2029].map(y=>`<button data-an="${y}" aria-pressed="${SUIVI.an===y}">${y}</button>`).join('');
+  const axPills = [{n:0,nom:'Tous les axes'}].concat(AXES).map(a=>`<button class="pill ${a.n?'hasdot':''}" data-sax="${a.n}" style="--pa:${a.c||'transparent'}" aria-pressed="${SUIVI.axe===a.n}">${a.n?`Axe ${a.n} · ${a.court}`:a.nom}</button>`).join('');
+  const stPills = [{k:'',nom:'Tous les statuts'}].concat(STATUTS.map((s,i)=>({k:String(i),nom:s.nom,c:s.c}))).map(s=>`<button class="pill ${s.k?'hasdot':''}" data-sst="${s.k}" style="--pa:${s.c||'transparent'}" aria-pressed="${SUIVI.statut===s.k}">${s.nom}</button>`).join('');
+  const rows = all.filter(x=>(!SUIVI.axe||x.o.id[0]==SUIVI.axe)&&(SUIVI.statut===''||String(x.st)===SUIVI.statut));
+  $('#app').innerHTML = `
+  <header class="page-head"><h1>Suivi des objectifs</h1><p>Tableau de bord de suivi du Masterplan : avancement des indicateurs par rapport à la trajectoire 2023 → 2034 et état des projets, selon trois scénarios.</p></header>
+  <div class="fictif" role="note">${svg('gauge')}<div><b>Données fictives.</b> Les valeurs « réalisées » et l'état des projets sont simulés à partir de scénarios, à des fins de démonstration. Ils ne reflètent pas la mise en œuvre réelle du Masterplan. Seules les valeurs de référence 2023 et les cibles 2034 viennent du document.</div></div>
+  <div class="suivi-tools">
+    <div><p class="caps lab">Scénario</p><div class="seg" role="group" aria-label="Scénario">${scBtns}</div></div>
+    <div><p class="caps lab">Situation à fin</p><div class="seg" role="group" aria-label="Année de suivi">${anBtns}</div></div>
+    <p class="scdesc">${SCEN[SUIVI.sc].desc}</p>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><span class="caps">Avancement moyen</span><b>${Math.round(avg*100)} %</b><small>du rythme attendu pour atteindre les cibles 2034</small></div>
+    <div class="kpi"><span class="caps">Indicateurs sur la trajectoire</span><b>${cnt[0]+cnt[1]} <em>/ ${inds.length}</em></b><small>en avance ou dans les temps · ${nonMes} non mesurables (référence absente)</small></div>
+    <div class="kpi"><span class="caps">Indicateurs critiques</span><b style="color:var(--st-bad)">${cnt[3]}</b><small>moins de 60 % du rythme attendu</small></div>
+    <div class="kpi"><span class="caps">Projets engagés</span><b>${Math.round((pj[2]+pj[3])/tpj*100)} %</b><small>${pj[2]} en cours · ${pj[3]} achevés sur ${tpj}</small></div>
+  </div>
+  <div class="grid2" style="margin-top:16px">
+    <div class="panel"><h3 class="pt">Statut des ${inds.length} indicateurs chiffrés</h3>
+      <div class="stack" role="img" aria-label="${STATUTS.map((s,i)=>s.nom+' '+cnt[i]).join(', ')}">${STATUTS.map((s,i)=>cnt[i]?`<i style="flex:${cnt[i]};background:${s.c}" title="${s.nom} : ${cnt[i]}"></i>`:'').join('')}</div>
+      <div class="stleg">${STATUTS.map((s,i)=>`<span><i style="background:${s.c}"></i>${s.nom} <b>${cnt[i]}</b></span>`).join('')}</div>
+      <h3 class="pt" style="margin-top:22px">Avancement par axe</h3>
+      <div class="axbars">${AXES.map(a=>{ const xs=all.filter(x=>x.o.id[0]==a.n); const ii=xs.flatMap(x=>x.inds); const v=ii.reduce((s,x)=>s+Math.max(0,Math.min(1.2,x.ratio)),0)/Math.max(1,ii.length); const st=statutOf(v);
+        return `<div class="axbar" style="${cvars(a)}"><span class="an">${a.n}</span><span class="al">${a.court}<small>${ii.length} indicateurs</small></span>${bar(v,st)}<span class="av">${Math.round(v*100)} %</span></div>`; }).join('')}</div>
+    </div>
+    <div class="panel"><h3 class="pt">État des ${tpj} projets</h3>
+      <div class="stack">${PJ_ST.map((s,i)=>`<i style="flex:${pj[i]};background:var(--pj${i})" title="${s} : ${pj[i]}"></i>`).join('')}</div>
+      <div class="stleg">${PJ_ST.map((s,i)=>`<span><i style="background:var(--pj${i})"></i>${s} <b>${pj[i]}</b></span>`).join('')}</div>
+      <h3 class="pt" style="margin-top:22px">Lecture du suivi</h3>
+      <div class="lecture">${lecture(all)}</div>
+      <p class="src">Synthèse rédigée automatiquement à partir des données simulées du scénario affiché.</p>
+    </div>
+  </div>
+  <h2 class="sech">Suivi par objectif stratégique</h2>
+  <div class="pills">${axPills}</div><div class="pills" style="margin-top:8px">${stPills}</div>
+  <p class="resultcount">${rows.length} objectif${rows.length>1?'s':''} · cliquez sur une ligne pour voir ses indicateurs</p>
+  <div class="tbl-wrap"><table class="tbl suivi-t"><thead><tr><th>Objectif</th><th>Statut</th><th>Avancement</th><th class="v">Indicateurs</th><th>Projets</th><th></th></tr></thead><tbody>
+  ${rows.map(x=>{ const a=ax(x.o.id); const open=SUIVI.open===x.o.id;
+    return `<tr class="srow${open?' open':''}" data-os="${x.o.id}" tabindex="0" aria-expanded="${open}" style="${cvars(a)}">
+      <td><span class="os"><a href="#${slug(x.o.id)}" onclick="event.stopPropagation()">OS ${x.o.id}</a></span> <span class="stt">${esc(x.o.titre)}</span></td>
+      <td>${pill(x.st)}</td>
+      <td class="avc">${x.av!=null?`${bar(x.av,x.st)}<span class="mono">${Math.round(x.av*100)} %</span>`:'<span class="muted">–</span>'}</td>
+      <td class="v">${x.inds.length}/${x.o.indicateurs.length}</td>
+      <td><span class="mini">${PJ_ST.map((s,i)=>x.pst[i]?`<i style="flex:${x.pst[i]};background:var(--pj${i})"></i>`:'').join('')}</span><span class="mono small">${x.pst[2]+x.pst[3]}/${x.nPj}</span></td>
+      <td class="chev">${svg('chev','ico')}</td></tr>
+      ${open?`<tr class="sdet"><td colspan="6">${x.inds.length?`<table class="tbl inner"><thead><tr><th>Indicateur</th><th class="v">2023</th><th class="v">Attendu ${SUIVI.an}</th><th class="v">Réalisé ${SUIVI.an} <em>(fictif)</em></th><th class="v">Cible 2034</th><th>Trajectoire</th><th>Statut</th></tr></thead><tbody>${x.inds.map(i=>`<tr><td>${esc(i.lib)}</td><td class="v">${esc(i.ref)}</td><td class="v">${fmtv(i.attendu,i.cible)}</td><td class="v"><b style="color:${STATUTS[i.st].c}">${fmtv(i.val,i.cible)}</b></td><td class="v">${esc(i.cible)}</td><td>${sparkline(i.traj,i.st)}</td><td>${pill(i.st)}</td></tr>`).join('')}</tbody></table>`:'<p class="muted" style="margin:6px 0">Aucun indicateur chiffré avec valeur de référence : avancement estimé à partir de l\'état des projets.</p>'}
+        <p class="src" style="margin-top:8px">Trajectoire : trait pointillé = rythme linéaire attendu entre 2023 et la cible 2034 ; trait plein = réalisé simulé.</p></td></tr>`:''}`; }).join('')}
+  </tbody></table></div>
+  <p class="src" style="margin-top:12px">Méthode : pour chaque indicateur dont la référence 2023 et la cible 2034 sont chiffrées, l'avancement attendu est linéaire (1/11 de l'écart par an). Le réalisé est tiré d'une loi normale propre à chaque scénario (graine fixe, résultats reproductibles). Statut : en avance ≥ 105 % du rythme attendu, dans les temps ≥ 90 %, en retard ≥ 60 %, critique en dessous.</p>`;
+  document.querySelectorAll('[data-sc]').forEach(b=>b.onclick=()=>{ SUIVI.sc=b.dataset.sc; viewSuivi(); });
+  document.querySelectorAll('[data-an]').forEach(b=>b.onclick=()=>{ SUIVI.an=+b.dataset.an; viewSuivi(); });
+  document.querySelectorAll('[data-sax]').forEach(b=>b.onclick=()=>{ SUIVI.axe=+b.dataset.sax; viewSuivi(); });
+  document.querySelectorAll('[data-sst]').forEach(b=>b.onclick=()=>{ SUIVI.statut=b.dataset.sst; viewSuivi(); });
+  document.querySelectorAll('.srow').forEach(r=>{ const t=()=>{ SUIVI.open = SUIVI.open===r.dataset.os?null:r.dataset.os; const y=scrollY; viewSuivi(); scrollTo(0,y); };
+    r.onclick=t; r.onkeydown=e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); t(); } }; });
+}
+
 /* ---------- routeur ---------- */
 function route(){
   const h = location.hash.slice(1) || 'accueil';
@@ -891,6 +1080,7 @@ function route(){
   if (m) viewFiche(m[1]+'.'+m[2]);
   else if (h==='indicateurs'){ viewIndicateurs(); nav=h; }
   else if (h==='masterplan'){ viewMasterplan(); nav=h; }
+  else if (h==='suivi'){ viewSuivi(); nav=h; }
   else if (h==='documents'){ viewDocuments(); nav=h; }
   else if (h==='arborescence'){ viewArbo(); nav='masterplan'; }
   else if (h==='territoires'){ viewTerritoires(); nav=h; }
